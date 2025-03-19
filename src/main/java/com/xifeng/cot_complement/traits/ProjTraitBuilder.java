@@ -6,6 +6,8 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import net.minecraft.item.ItemStack;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -36,6 +38,63 @@ public class ProjTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
+    public Functions.AfterBlockBreak afterBlockBreak = null;
+
+    @ZenProperty
+    public Functions.BeforeBlockBreak beforeBlockBreak = null;
+
+    @ZenProperty
+    public Functions.BlockHarvestDrops onBlockHarvestDrops = null;
+
+    @ZenProperty
+    public Functions.Damage calcDamage = null;
+
+    @ZenProperty
+    public Functions.IsCriticalHit calcCrit = null;
+
+    @ZenProperty
+    public Functions.MiningSpeed getMiningSpeed = null;
+
+    @ZenProperty
+    public Functions.OnHit onHit = null;
+
+    @ZenProperty
+    public Functions.OnUpdate onUpdate = null;
+
+    @ZenProperty
+    public Functions.AfterHit afterHit = null;
+
+    @ZenProperty
+    public Functions.KnockBack calcKnockBack = null;
+
+    @ZenProperty
+    public Functions.OnBlock onBlock = null;
+
+    @ZenProperty
+    public Functions.OnToolDamage onToolDamage = null;
+
+    @ZenProperty
+    public Functions.OnToolHeal calcToolHeal = null;
+
+    @ZenProperty
+    public Functions.OnToolRepair onToolRepair = null;
+
+    @ZenProperty
+    public Functions.OnPlayerHurt onPlayerHurt = null;
+
+    @ZenProperty
+    public Functions.CanApplyTogetherTrait canApplyTogetherTrait = null;
+
+    @ZenProperty
+    public Functions.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
+
+    @ZenProperty
+    public Functions.ExtraInfo extraInfo = null;
+
+    @ZenProperty
+    public Functions.ApplyEffect applyEffect = null;
+
+    @ZenProperty
     public Functions.OnLaunch onLaunch = null;
 
     @ZenProperty
@@ -45,7 +104,7 @@ public class ProjTraitBuilder {
     public Functions.OnProjectileUpdate onProjectileUpdate = null;
 
     @ZenProperty
-    public Functions.AfterHit afterHit = null;
+    public Functions.AfterProjHit afterProjHit = null;
 
     @ZenProperty
     public String localizedName = null;
@@ -53,7 +112,9 @@ public class ProjTraitBuilder {
     @ZenProperty
     public String localizedDescription = null;
 
-    private List<CCRecipeMatch> recipeMatches = new ArrayList<>();
+    private final List<CCRecipeMatch> recipeMatches = new ArrayList<>();
+
+    private final List<RecipeMatch> recipeMatch = new ArrayList<>();
 
     public ProjTraitBuilder(String identifier) {
         this.identifier = identifier;
@@ -69,6 +130,11 @@ public class ProjTraitBuilder {
         recipeMatches.add(new CCRecipeMatch(ingredient, amountMatched, amountNeeded) {
         });
     }
+    
+    @ZenMethod
+    public void addMultiItem(int amount, ItemStack... items) {
+        recipeMatch.add(new RecipeMatch.ItemCombination(amount, items));
+    }
 
     @ZenMethod
     public void removeItem(IItemStack itemStack) {
@@ -78,16 +144,37 @@ public class ProjTraitBuilder {
     @ZenMethod
     public TicTraitRepresentation register() {
         ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel);
+        trait.afterBlockBreak = this.afterBlockBreak;
+        trait.beforeBlockBreak = this.beforeBlockBreak;
+        trait.onBlockHarvestDrops = this.onBlockHarvestDrops;
+        trait.calcDamage = this.calcDamage;
+        trait.calcCrit = this.calcCrit;
+        trait.getMiningSpeed = this.getMiningSpeed;
+        trait.onHit = this.onHit;
+        trait.onUpdate = this.onUpdate;
+        trait.afterHit = this.afterHit;
+        trait.calcKnockBack = this.calcKnockBack;
+        trait.onBlock = this.onBlock;
+        trait.onToolDamage = this.onToolDamage;
+        trait.calcToolHeal = this.calcToolHeal;
+        trait.onToolRepair = this.onToolRepair;
+        trait.onPlayerHurt = this.onPlayerHurt;
         trait.onLaunch = this.onLaunch;
         trait.onProjectileUpdate = this.onProjectileUpdate;
         trait.onMovement = this.onMovement;
-        trait.afterHit = this.afterHit;
-        trait.hidden = this.hidden;
+        trait.afterProjHit = this.afterProjHit;
+        trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
+        trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
+        trait.extraInfo = this.extraInfo;
+        trait.applyEffect = this.applyEffect;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 
         for (CCRecipeMatch recipeMatch : recipeMatches) {
             trait.addItem(recipeMatch);
+        }
+        for (RecipeMatch recipe : recipeMatch) {
+            trait.addRecipeMatch(recipe);
         }
 
         TinkerRegistry.addTrait(trait);

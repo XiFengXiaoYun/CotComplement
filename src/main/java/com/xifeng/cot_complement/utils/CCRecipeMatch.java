@@ -17,6 +17,7 @@ public abstract class CCRecipeMatch extends RecipeMatch {
         super(amountMatched, amountNeeded);
         this.ingredient = ingredients;
     }
+
     @Override
     public List<ItemStack> getInputs() {
         List<ItemStack> output = new ArrayList<>();
