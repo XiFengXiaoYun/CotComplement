@@ -133,6 +133,8 @@ public class ProjTraitBuilder {
     
     @ZenMethod
     public void addMultiItem(int amount, ItemStack... items) {
+        if (items == null) {throw new NullPointerException("Something is wrong");}
+        if (items.length == 0) {throw new ArrayIndexOutOfBoundsException("Array length can not be zero");}
         recipeMatch.add(new RecipeMatch.ItemCombination(amount, items));
     }
 
@@ -173,6 +175,7 @@ public class ProjTraitBuilder {
         for (CCRecipeMatch recipeMatch : recipeMatches) {
             trait.addItem(recipeMatch);
         }
+
         for (RecipeMatch recipe : recipeMatch) {
             trait.addRecipeMatch(recipe);
         }

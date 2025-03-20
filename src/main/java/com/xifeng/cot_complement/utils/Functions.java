@@ -17,7 +17,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
-import net.minecraft.nbt.NBTTagCompound;
 import stanhebben.zenscript.annotations.ZenClass;
 
 public class Functions {
@@ -151,7 +150,7 @@ public class Functions {
     @ZenRegister
     @ModOnly("tconstruct")
     public interface ApplyEffect {
-        void handle(NBTTagCompound rootCompound, NBTTagCompound modifierTag);
+        void handle(IData rootCompound, IData modifierTag);
     }
 
     @ZenClass("mods.cc.traits.OnLaunch")

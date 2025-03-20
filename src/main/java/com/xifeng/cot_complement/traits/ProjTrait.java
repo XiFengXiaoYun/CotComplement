@@ -246,7 +246,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     @Override
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
-            applyEffect.handle((NBTTagCompound) NBTConverter.from(rootCompound,  true), (NBTTagCompound) NBTConverter.from(modifierTag, true));
+            applyEffect.handle(NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
         }
     }
 
