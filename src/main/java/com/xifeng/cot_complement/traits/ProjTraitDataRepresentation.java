@@ -8,13 +8,13 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenSetter;
 
-@ZenClass("mods.cc.TicTraitRepresentation")
+@ZenClass("mods.cc.ProjTraitRepresentation")
 @ZenRegister
 @ModOnly("tconstruct")
-public class TicTraitDataRepresentation {
+public class ProjTraitDataRepresentation {
     private final ModifierNBT.IntegerNBT data;
 
-    public TicTraitDataRepresentation(ModifierNBT.IntegerNBT data) {
+    public ProjTraitDataRepresentation(ModifierNBT.IntegerNBT data) {
         this.data = data;
     }
 
@@ -36,16 +36,6 @@ public class TicTraitDataRepresentation {
     @ZenSetter("current")
     public void setCurrent(int current) {
         data.current = current;
-    }
-
-    @ZenGetter("extraToolInfo")
-    public String getExtraToolInfo() {
-        return data.extraInfo;
-    }
-
-    @ZenSetter("extraToolInfo")
-    public void setExtraToolInfo(String extraInfo) {
-        data.extraInfo = extraInfo;
     }
 
     @ZenGetter("extraInfo")

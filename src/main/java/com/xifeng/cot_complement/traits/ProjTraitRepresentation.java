@@ -78,9 +78,9 @@ public class ProjTraitRepresentation {
     }
 
     @ZenMethod
-    public TicTraitDataRepresentation getData(IItemStack itemStack) {
+    public ProjTraitDataRepresentation getData(IItemStack itemStack) {
         if(projectileTrait instanceof ProjectileModifierTrait) {
-            return new TicTraitDataRepresentation(((ProjectileModifierTrait) projectileTrait).getData(CraftTweakerMC.getItemStack(itemStack)));
+            return new ProjTraitDataRepresentation(((ProjectileModifierTrait) projectileTrait).getData(CraftTweakerMC.getItemStack(itemStack)));
         }
         CraftTweakerAPI.logError("Trait " + projectileTrait.getIdentifier() + " is not applicable to the getData function!");
         return null;
