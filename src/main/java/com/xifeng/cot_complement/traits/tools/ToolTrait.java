@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.traits.tools;
 
 import com.xifeng.cot_complement.utils.Functions;
 import crafttweaker.api.minecraft.CraftTweakerMC;

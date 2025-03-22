@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.traits.projectile;
 
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;

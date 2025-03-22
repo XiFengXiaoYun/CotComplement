@@ -1,7 +1,7 @@
 package com.xifeng.cot_complement.utils;
 
-import com.xifeng.cot_complement.traits.ProjTraitRepresentation;
-import com.xifeng.cot_complement.traits.ToolTraitRepresentation;
+import com.xifeng.cot_complement.traits.projectile.ProjTraitRepresentation;
+import com.xifeng.cot_complement.traits.tools.ToolTraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.block.IBlockState;

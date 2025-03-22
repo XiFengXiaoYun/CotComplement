@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.traits.tools;
 
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;

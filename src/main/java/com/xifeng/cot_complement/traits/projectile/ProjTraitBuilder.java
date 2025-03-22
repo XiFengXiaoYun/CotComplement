@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.traits.projectile;
 
 import com.xifeng.cot_complement.utils.CCRecipeMatch;
 import com.xifeng.cot_complement.utils.Functions;
