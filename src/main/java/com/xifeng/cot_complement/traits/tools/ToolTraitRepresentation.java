@@ -1,5 +1,6 @@
 package com.xifeng.cot_complement.traits.tools;
 
+import com.xifeng.cot_complement.traits.TraitDataRepresentation;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -12,7 +13,10 @@ import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
-import stanhebben.zenscript.annotations.*;
+import stanhebben.zenscript.annotations.Optional;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
+import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
 
@@ -78,9 +82,9 @@ public class ToolTraitRepresentation {
     }
 
     @ZenMethod
-    public ToolTraitDataRepresentation getData(IItemStack itemStack) {
+    public TraitDataRepresentation getData(IItemStack itemStack) {
         if(trait instanceof ModifierTrait) {
-            return new ToolTraitDataRepresentation(((ModifierTrait) trait).getData(CraftTweakerMC.getItemStack(itemStack)));
+            return new TraitDataRepresentation(((ModifierTrait) trait).getData(CraftTweakerMC.getItemStack(itemStack)));
         }
         CraftTweakerAPI.logError("Trait " + trait.getIdentifier() + " is not applicable to the getData function!");
         return null;
