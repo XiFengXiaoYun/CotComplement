@@ -1,5 +1,5 @@
 package com.xifeng.cot_complement.traits.projectile;
-
+/*
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -86,3 +86,4 @@ public class ProjTraitDataRepresentation {
         return data.getColorString();
     }
 }
+*/

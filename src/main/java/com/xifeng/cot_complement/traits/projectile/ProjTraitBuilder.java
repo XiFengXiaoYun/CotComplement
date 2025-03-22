@@ -1,5 +1,5 @@
 package com.xifeng.cot_complement.traits.projectile;
-
+/*
 import com.xifeng.cot_complement.utils.CCRecipeMatch;
 import com.xifeng.cot_complement.utils.Functions;
 import crafttweaker.annotations.ModOnly;
@@ -104,9 +104,9 @@ public class ProjTraitBuilder {
         trait.onMovement = this.onMovement;
         trait.afterProjHit = this.afterProjHit;
         trait.hidden = this.hidden;
-        trait.applyTogetherProjTrait = this.canApplyTogetherTrait;
-        trait.applyTogetherProjEnchantment = this.canApplyTogetherEnchantment;
-        trait.extraProjInfo = this.extraInfo;
+        //trait.applyTogetherProjTrait = this.canApplyTogetherTrait;
+        //trait.applyTogetherProjEnchantment = this.canApplyTogetherEnchantment;
+        //trait.extraProjInfo = this.extraInfo;
         trait.applyEffect = this.applyEffect;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
@@ -124,3 +124,4 @@ public class ProjTraitBuilder {
         return new ProjTraitRepresentation(trait);
     }
 }
+*/

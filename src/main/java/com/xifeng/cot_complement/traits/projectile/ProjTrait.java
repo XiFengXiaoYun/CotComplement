@@ -1,5 +1,5 @@
 package com.xifeng.cot_complement.traits.projectile;
-
+/*
 import com.xifeng.cot_complement.utils.Functions;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.data.NBTConverter;
@@ -23,9 +23,9 @@ import java.util.List;
 
 public class ProjTrait extends ProjectileModifierTrait implements IProjectileTrait {
 
-    Functions.ApplyTogetherProjTrait applyTogetherProjTrait = null;
-    Functions.ApplyTogetherProjEnchantment applyTogetherProjEnchantment = null;
-    Functions.ExtraProjInfo extraProjInfo = null;
+    //Functions.ApplyTogetherProjTrait applyTogetherProjTrait = null;
+    //Functions.ApplyTogetherProjEnchantment applyTogetherProjEnchantment = null;
+    //Functions.ExtraProjInfo extraProjInfo = null;
     Functions.ApplyEffect applyEffect = null;
     Functions.OnLaunch onLaunch = null;
     Functions.OnMovement onMovement = null;
@@ -138,3 +138,4 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
         this.items.add(recipeMatch);
     }
 }
+*/
