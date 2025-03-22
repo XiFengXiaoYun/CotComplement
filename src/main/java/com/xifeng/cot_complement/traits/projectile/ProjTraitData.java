@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.traits.projectile;
 
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -11,10 +11,10 @@ import stanhebben.zenscript.annotations.ZenSetter;
 @ZenClass("mods.cc.TraitDataRepresentation")
 @ZenRegister
 @ModOnly("tconstruct")
-public class TraitDataRepresentation {
+public class ProjTraitData {
     private final ModifierNBT.IntegerNBT data;
 
-    public TraitDataRepresentation(ModifierNBT.IntegerNBT data) {
+    public ProjTraitData(ModifierNBT.IntegerNBT data) {
         this.data = data;
     }
 

@@ -1,6 +1,5 @@
 package com.xifeng.cot_complement.traits.projectile;
 
-import com.xifeng.cot_complement.traits.TraitDataRepresentation;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -82,9 +81,9 @@ public class ProjTraitRepresentation {
     }
 
     @ZenMethod
-    public TraitDataRepresentation getData(IItemStack itemStack) {
+    public ProjTraitData getData(IItemStack itemStack) {
         if(projectileTrait instanceof ProjectileModifierTrait) {
-            return new TraitDataRepresentation(((ProjectileModifierTrait) projectileTrait).getData(CraftTweakerMC.getItemStack(itemStack)));
+            return new ProjTraitData(((ProjectileModifierTrait) projectileTrait).getData(CraftTweakerMC.getItemStack(itemStack)));
         }
         CraftTweakerAPI.logError("Trait " + projectileTrait.getIdentifier() + " is not applicable to the getData function!");
         return null;

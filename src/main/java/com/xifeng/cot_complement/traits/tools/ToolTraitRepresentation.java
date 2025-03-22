@@ -1,6 +1,5 @@
 package com.xifeng.cot_complement.traits.tools;
 
-import com.xifeng.cot_complement.traits.TraitDataRepresentation;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -82,9 +81,9 @@ public class ToolTraitRepresentation {
     }
 
     @ZenMethod
-    public TraitDataRepresentation getData(IItemStack itemStack) {
+    public ToolTraitData getData(IItemStack itemStack) {
         if(trait instanceof ModifierTrait) {
-            return new TraitDataRepresentation(((ModifierTrait) trait).getData(CraftTweakerMC.getItemStack(itemStack)));
+            return new ToolTraitData(((ModifierTrait) trait).getData(CraftTweakerMC.getItemStack(itemStack)));
         }
         CraftTweakerAPI.logError("Trait " + trait.getIdentifier() + " is not applicable to the getData function!");
         return null;
