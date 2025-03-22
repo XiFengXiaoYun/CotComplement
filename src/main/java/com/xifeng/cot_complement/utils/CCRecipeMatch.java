@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class CCRecipeMatch extends RecipeMatch {
+public class CCRecipeMatch extends RecipeMatch {
     public final IIngredient ingredient;
     public CCRecipeMatch(IIngredient ingredients, int amountMatched, int amountNeeded) {
         super(amountMatched, amountNeeded);

@@ -8,7 +8,7 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenSetter;
 
-@ZenClass("mods.cc.projectileTraitRepresentation")
+@ZenClass("mods.cc.TicTraitRepresentation")
 @ZenRegister
 @ModOnly("tconstruct")
 public class TicTraitDataRepresentation {
@@ -38,15 +38,21 @@ public class TicTraitDataRepresentation {
         data.current = current;
     }
 
-    @ZenGetter("extraInfo")
-    public String getExtraInfo() {
+    @ZenGetter("extraToolInfo")
+    public String getExtraToolInfo() {
         return data.extraInfo;
     }
 
-    @ZenSetter("extraInfo")
-    public void setExtraInfo(String extraInfo) {
+    @ZenSetter("extraToolInfo")
+    public void setExtraToolInfo(String extraInfo) {
         data.extraInfo = extraInfo;
     }
+
+    @ZenGetter("extraInfo")
+    public String getExtraInfo() { return data.extraInfo; }
+
+    @ZenSetter("extraInfo")
+    public void setExtraInfo(String extraInfo) { data.extraInfo = extraInfo; }
 
     @ZenGetter("identifier")
     public String getIdentifier() {

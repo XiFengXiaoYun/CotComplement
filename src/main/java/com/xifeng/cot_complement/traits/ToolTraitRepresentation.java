@@ -10,42 +10,42 @@ import crafttweaker.api.oredict.IOreDictEntry;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
-import slimeknights.tconstruct.library.traits.IProjectileTrait;
+import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.traits.ITrait;
 import stanhebben.zenscript.annotations.*;
 
 import java.util.Arrays;
 
-@ZenClass("mods.cc.projectileTrait")
+@ZenClass("mods.cc.ToolTrait")
 @ZenRegister
 @ModOnly("tconstruct")
-public class TicTraitRepresentation {
-    private final IProjectileTrait projectileTrait;
+public class ToolTraitRepresentation {
+    private final ITrait trait;
 
-    public TicTraitRepresentation(IProjectileTrait trait) {
-        this.projectileTrait = trait;
+    public ToolTraitRepresentation(ITrait trait) {
+        this.trait = trait;
     }
 
     @SuppressWarnings("unused")
-    public static TicTraitRepresentation getFromString(String identifier) {
-        IProjectileTrait trait = (IProjectileTrait) TinkerRegistry.getTrait(identifier);
+    public static ToolTraitRepresentation getFromString(String identifier) {
+        ITrait trait = TinkerRegistry.getTrait(identifier);
         if(trait == null) {
             CraftTweakerAPI.logError("Cannot identify trait " + "<ticontrait:" + identifier + ">");
             return null;
         }
-        return new TicTraitRepresentation(trait);
+        return new ToolTraitRepresentation(trait);
     }
 
 
     @ZenMethod
     public void addItem(IIngredient item, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {
 
-        if(!(projectileTrait instanceof RecipeMatchRegistry)) {
+        if(!(trait instanceof RecipeMatchRegistry)) {
             CraftTweakerAPI.logError("Cannot add item " + item.toCommandString() + " to trait " + toCommandString());
             return;
         }
 
-        RecipeMatchRegistry trait = (RecipeMatchRegistry) this.projectileTrait;
+        RecipeMatchRegistry trait = (RecipeMatchRegistry) this.trait;
         if(item instanceof IItemStack) {
             trait.addItem(CraftTweakerMC.getItemStack(item), amountNeeded, amountMatched);
         } else if(item instanceof IOreDictEntry) {
@@ -59,39 +59,35 @@ public class TicTraitRepresentation {
 
     @ZenMethod
     public void addMultiItem(int amountMatched, IItemStack... items) {
-        if(!(projectileTrait instanceof RecipeMatchRegistry)){
+        if(!(trait instanceof RecipeMatchRegistry)){
             CraftTweakerAPI.logError("Cannot add items " + Arrays.toString(items) + " to trait " + toCommandString());
             return;
         }
-        RecipeMatchRegistry recipeMatchRegistry = (RecipeMatchRegistry) this.projectileTrait;
+        RecipeMatchRegistry recipeMatchRegistry = (RecipeMatchRegistry) this.trait;
         recipeMatchRegistry.addRecipeMatch(new RecipeMatch.ItemCombination(amountMatched, CraftTweakerMC.getItemStacks(items)));
     }
 
     @ZenGetter("identifier")
     public String getIdentifier() {
-        return projectileTrait.getIdentifier();
+        return trait.getIdentifier();
     }
 
     @ZenGetter("commandString")
     public String toCommandString() {
-        return "<ticontrait:" + projectileTrait.getIdentifier() + ">";
+        return "<ticontrait:" + trait.getIdentifier() + ">";
     }
 
     @ZenMethod
     public TicTraitDataRepresentation getData(IItemStack itemStack) {
-        if(projectileTrait instanceof ProjectileModifierTrait) {
-            return new TicTraitDataRepresentation(((ProjectileModifierTrait) projectileTrait).getData(CraftTweakerMC.getItemStack(itemStack)));
+        if(trait instanceof ModifierTrait) {
+            return new TicTraitDataRepresentation(((ModifierTrait) trait).getData(CraftTweakerMC.getItemStack(itemStack)));
         }
-        CraftTweakerAPI.logError("Trait " + projectileTrait.getIdentifier() + " is not applicable to the getData function!");
+        CraftTweakerAPI.logError("Trait " + trait.getIdentifier() + " is not applicable to the getData function!");
         return null;
     }
 
 
-    public IProjectileTrait getTrait() {
-        return projectileTrait;
-    }
-
-    public IProjectileTrait getProjectileTrait() {
-        return projectileTrait;
+    public ITrait getTrait() {
+        return trait;
     }
 }

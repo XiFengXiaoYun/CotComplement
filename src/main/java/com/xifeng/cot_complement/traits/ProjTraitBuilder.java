@@ -6,7 +6,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import net.minecraft.item.ItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
@@ -38,58 +38,13 @@ public class ProjTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
-    public Functions.AfterBlockBreak afterBlockBreak = null;
+    public Functions.ApplyTogetherProjTrait canApplyTogetherTrait = null;
 
     @ZenProperty
-    public Functions.BeforeBlockBreak beforeBlockBreak = null;
+    public Functions.ApplyTogetherProjEnchantment canApplyTogetherEnchantment = null;
 
     @ZenProperty
-    public Functions.BlockHarvestDrops onBlockHarvestDrops = null;
-
-    @ZenProperty
-    public Functions.Damage calcDamage = null;
-
-    @ZenProperty
-    public Functions.IsCriticalHit calcCrit = null;
-
-    @ZenProperty
-    public Functions.MiningSpeed getMiningSpeed = null;
-
-    @ZenProperty
-    public Functions.OnHit onHit = null;
-
-    @ZenProperty
-    public Functions.OnUpdate onUpdate = null;
-
-    @ZenProperty
-    public Functions.AfterHit afterHit = null;
-
-    @ZenProperty
-    public Functions.KnockBack calcKnockBack = null;
-
-    @ZenProperty
-    public Functions.OnBlock onBlock = null;
-
-    @ZenProperty
-    public Functions.OnToolDamage onToolDamage = null;
-
-    @ZenProperty
-    public Functions.OnToolHeal calcToolHeal = null;
-
-    @ZenProperty
-    public Functions.OnToolRepair onToolRepair = null;
-
-    @ZenProperty
-    public Functions.OnPlayerHurt onPlayerHurt = null;
-
-    @ZenProperty
-    public Functions.CanApplyTogetherTrait canApplyTogetherTrait = null;
-
-    @ZenProperty
-    public Functions.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
-
-    @ZenProperty
-    public Functions.ExtraInfo extraInfo = null;
+    public Functions.ExtraProjInfo extraInfo = null;
 
     @ZenProperty
     public Functions.ApplyEffect applyEffect = null;
@@ -132,42 +87,26 @@ public class ProjTraitBuilder {
     }
     
     @ZenMethod
-    public void addMultiItem(int amount, ItemStack... items) {
-        if (items == null) {throw new NullPointerException("Something is wrong");}
-        if (items.length == 0) {throw new ArrayIndexOutOfBoundsException("Array length can not be zero");}
-        recipeMatch.add(new RecipeMatch.ItemCombination(amount, items));
+    public void addMultiItem(int amount, IItemStack... items) {
+        recipeMatch.add(new RecipeMatch.ItemCombination(amount, CraftTweakerMC.getItemStacks(items)));
     }
 
     @ZenMethod
     public void removeItem(IItemStack itemStack) {
-        recipeMatches.removeIf(coTRecipeMatch -> coTRecipeMatch.matches(itemStack));
+        recipeMatches.removeIf(ccRecipeMatch -> ccRecipeMatch.matches(itemStack));
     }
 
     @ZenMethod
-    public TicTraitRepresentation register() {
+    public ProjTraitRepresentation register() {
         ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel);
-        trait.afterBlockBreak = this.afterBlockBreak;
-        trait.beforeBlockBreak = this.beforeBlockBreak;
-        trait.onBlockHarvestDrops = this.onBlockHarvestDrops;
-        trait.calcDamage = this.calcDamage;
-        trait.calcCrit = this.calcCrit;
-        trait.getMiningSpeed = this.getMiningSpeed;
-        trait.onHit = this.onHit;
-        trait.onUpdate = this.onUpdate;
-        trait.afterHit = this.afterHit;
-        trait.calcKnockBack = this.calcKnockBack;
-        trait.onBlock = this.onBlock;
-        trait.onToolDamage = this.onToolDamage;
-        trait.calcToolHeal = this.calcToolHeal;
-        trait.onToolRepair = this.onToolRepair;
-        trait.onPlayerHurt = this.onPlayerHurt;
         trait.onLaunch = this.onLaunch;
         trait.onProjectileUpdate = this.onProjectileUpdate;
         trait.onMovement = this.onMovement;
         trait.afterProjHit = this.afterProjHit;
-        trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
-        trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
-        trait.extraInfo = this.extraInfo;
+        trait.hidden = this.hidden;
+        trait.applyTogetherProjTrait = this.canApplyTogetherTrait;
+        trait.applyTogetherProjEnchantment = this.canApplyTogetherEnchantment;
+        trait.extraProjInfo = this.extraInfo;
         trait.applyEffect = this.applyEffect;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
@@ -182,6 +121,6 @@ public class ProjTraitBuilder {
 
         TinkerRegistry.addTrait(trait);
 
-        return new TicTraitRepresentation(trait);
+        return new ProjTraitRepresentation(trait);
     }
 }
