@@ -8,7 +8,7 @@ import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenSetter;
 
-@ZenClass("mods.cc.TraitDataRepresentation")
+@ZenClass("mods.cc.ProjTraitData")
 @ZenRegister
 @ModOnly("tconstruct")
 public class ProjTraitData {
