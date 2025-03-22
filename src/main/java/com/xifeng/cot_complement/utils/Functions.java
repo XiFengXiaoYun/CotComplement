@@ -1,6 +1,6 @@
 package com.xifeng.cot_complement.utils;
 
-//import com.xifeng.cot_complement.traits.projectile.ProjTraitRepresentation;
+import com.xifeng.cot_complement.traits.projectile.ProjTraitRepresentation;
 import com.xifeng.cot_complement.traits.tools.ToolTraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -154,7 +154,7 @@ public class Functions {
     public interface ApplyEffect {
         void handle(IData rootCompound, IData modifierTag);
     }
-/*
+
     @ZenClass("mods.cc.traits.OnLaunch")
     @ZenRegister
     @ModOnly("tconstruct")
@@ -204,5 +204,5 @@ public class Functions {
     public interface ExtraProjInfo {
         String[] handle(ProjTraitRepresentation thisTrait, IItemStack item, IData tool);
     }
-*/
+
 }

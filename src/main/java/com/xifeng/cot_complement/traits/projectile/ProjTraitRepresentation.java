@@ -1,5 +1,5 @@
 package com.xifeng.cot_complement.traits.projectile;
-/*
+
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -90,4 +90,3 @@ public class ProjTraitRepresentation {
         return projectileTrait;
     }
 }
-*/
