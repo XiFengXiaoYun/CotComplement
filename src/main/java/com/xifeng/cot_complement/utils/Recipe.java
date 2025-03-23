@@ -11,31 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CCRecipeMatch extends RecipeMatch {
+public class Recipe extends RecipeMatch {
+
     public final IIngredient ingredient;
-    public CCRecipeMatch(IIngredient ingredients, int amountMatched, int amountNeeded) {
+
+    public Recipe(IIngredient ingredients, int amountMatched, int amountNeeded) {
         super(amountMatched, amountNeeded);
         this.ingredient = ingredients;
     }
 
     @Override
     public List<ItemStack> getInputs() {
-        List<ItemStack> output = new ArrayList<>();
-        if(ingredient != null) {
+        List<ItemStack> out = new ArrayList<>();
+        if (ingredient != null) {
             for (IItemStack itemStack : ingredient.getItems()) {
-                if(itemStack != null) {
-                    output.add(CraftTweakerMC.getItemStack(itemStack));
+                if (itemStack != null) {
+                    out.add(CraftTweakerMC.getItemStack(itemStack));
                 }
             }
         }
-        return output;
+        return out;
     }
+
     @Override
     public Optional<Match> matches(NonNullList<ItemStack> stacks) {
         int stillNeeded = amountNeeded;
         List<ItemStack> found = new ArrayList<>();
         for (ItemStack item : stacks) {
-            if(ingredient != null && ingredient.matchesExact(CraftTweakerMC.getIItemStack(item))) {
+            if (ingredient != null && ingredient.matchesExact(CraftTweakerMC.getIItemStack(item))) {
                 ItemStack copy = item.copy();
                 copy.setCount(Math.min(copy.getCount(), stillNeeded));
                 stillNeeded -= copy.getCount();
@@ -44,10 +47,13 @@ public class CCRecipeMatch extends RecipeMatch {
         }
         return stillNeeded > 0 ? Optional.empty() : Optional.of(new Match(found, amountMatched));
     }
+
+
     public boolean matches(IItemStack itemStack) {
-        if(ingredient == null) {
+        if (ingredient == null) {
             return itemStack == null;
         }
         return ingredient.matches(itemStack);
     }
+
 }

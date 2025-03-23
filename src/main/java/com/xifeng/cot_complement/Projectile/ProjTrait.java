@@ -1,36 +1,25 @@
-package com.xifeng.cot_complement.traits;
+package com.xifeng.cot_complement.Projectile;
 
-import com.xifeng.cot_complement.utils.Functions;
+import com.xifeng.cot_complement.utils.Function;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.mc1120.data.NBTConverter;
-import crafttweaker.mc1120.enchantments.MCEnchantmentDefinition;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
-import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
 
 public class ProjTrait extends ProjectileModifierTrait implements IProjectileTrait {
 
-    //Functions.ApplyTogetherProjTrait applyTogetherProjTrait = null;
-    //Functions.ApplyTogetherProjEnchantment applyTogetherProjEnchantment = null;
-    //Functions.ExtraProjInfo extraProjInfo = null;
-    //Functions.ApplyEffect applyEffect = null;
-    Functions.OnLaunch onLaunch = null;
-    Functions.OnMovement onMovement = null;
-    Functions.OnProjectileUpdate onProjectileUpdate = null;
-    Functions.AfterProjHit afterProjHit = null;
+    Function.OnLaunch onLaunch = null;
+    Function.OnMovement onMovement = null;
+    Function.OnProjectileUpdate onProjectileUpdate = null;
+    Function.AfterProjHit afterProjHit = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -54,39 +43,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             super.onLaunch(projectileBase, world, shooter);
         }
     }
-/*
-    @Override
-    public boolean canApplyTogether(IToolMod otherModifier) {
-        if (applyTogetherProjTrait != null) {
-            return applyTogetherProjTrait.handle(thisTrait, otherModifier.getIdentifier());
-        }
-        return super.canApplyTogether(otherModifier);
-    }
 
-
-    @Override
-    public boolean canApplyTogether(Enchantment enchantment) {
-        if (applyTogetherProjEnchantment != null) {
-            return applyTogetherProjEnchantment.handle(thisTrait, new MCEnchantmentDefinition(enchantment));
-        }
-        return super.canApplyTogether(enchantment);
-    }
-
-    @Override
-    public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
-        if (extraProjInfo != null) {
-            return Arrays.asList(extraProjInfo.handle(thisTrait, CraftTweakerMC.getIItemStack(tool), NBTConverter.from(modifierTag, true)));
-        }
-        return super.getExtraInfo(tool, modifierTag);
-    }
-
-    @Override
-    public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-        if (applyEffect != null) {
-            applyEffect.handle(NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
-        }
-    }
-*/
     @Override
     public void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack) {
         if (onProjectileUpdate != null) {
@@ -131,10 +88,6 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     }
 
     public void addItem(RecipeMatch recipeMatch) {
-        this.items.add(recipeMatch);
-    }
-
-    public void addRecipeMatch(RecipeMatch recipeMatch) {
         this.items.add(recipeMatch);
     }
 }
