@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits.projectile;
+package com.xifeng.cot_complement.traits;
 
 import com.xifeng.cot_complement.utils.Functions;
 import crafttweaker.api.minecraft.CraftTweakerMC;
@@ -23,10 +23,10 @@ import java.util.List;
 
 public class ProjTrait extends ProjectileModifierTrait implements IProjectileTrait {
 
-    Functions.ApplyTogetherProjTrait applyTogetherProjTrait = null;
-    Functions.ApplyTogetherProjEnchantment applyTogetherProjEnchantment = null;
-    Functions.ExtraProjInfo extraProjInfo = null;
-    Functions.ApplyEffect applyEffect = null;
+    //Functions.ApplyTogetherProjTrait applyTogetherProjTrait = null;
+    //Functions.ApplyTogetherProjEnchantment applyTogetherProjEnchantment = null;
+    //Functions.ExtraProjInfo extraProjInfo = null;
+    //Functions.ApplyEffect applyEffect = null;
     Functions.OnLaunch onLaunch = null;
     Functions.OnMovement onMovement = null;
     Functions.OnProjectileUpdate onProjectileUpdate = null;
@@ -54,7 +54,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             super.onLaunch(projectileBase, world, shooter);
         }
     }
-
+/*
     @Override
     public boolean canApplyTogether(IToolMod otherModifier) {
         if (applyTogetherProjTrait != null) {
@@ -86,7 +86,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             applyEffect.handle(NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
         }
     }
-
+*/
     @Override
     public void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack) {
         if (onProjectileUpdate != null) {

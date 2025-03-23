@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.traits.projectile;
+package com.xifeng.cot_complement.traits;
 
 import com.xifeng.cot_complement.utils.CCRecipeMatch;
 import com.xifeng.cot_complement.utils.Functions;
@@ -36,7 +36,7 @@ public class ProjTraitBuilder {
 
     @ZenProperty
     public boolean hidden = false;
-
+/*
     @ZenProperty
     public Functions.ApplyTogetherProjTrait canApplyTogetherTrait = null;
 
@@ -48,7 +48,7 @@ public class ProjTraitBuilder {
 
     @ZenProperty
     public Functions.ApplyEffect applyEffect = null;
-
+*/
     @ZenProperty
     public Functions.OnLaunch onLaunch = null;
 
@@ -67,9 +67,9 @@ public class ProjTraitBuilder {
     @ZenProperty
     public String localizedDescription = null;
 
-    private final List<CCRecipeMatch> recipeMatches = new ArrayList<>();
+    private List<CCRecipeMatch> recipeMatches = new ArrayList<>();
 
-    private final List<RecipeMatch> recipeMatch = new ArrayList<>();
+    private List<RecipeMatch> recipeMatch = new ArrayList<>();
 
     public ProjTraitBuilder(String identifier) {
         this.identifier = identifier;
@@ -104,10 +104,10 @@ public class ProjTraitBuilder {
         trait.onMovement = this.onMovement;
         trait.afterProjHit = this.afterProjHit;
         trait.hidden = this.hidden;
-        trait.applyTogetherProjTrait = this.canApplyTogetherTrait;
+        /*trait.applyTogetherProjTrait = this.canApplyTogetherTrait;
         trait.applyTogetherProjEnchantment = this.canApplyTogetherEnchantment;
         trait.extraProjInfo = this.extraInfo;
-        trait.applyEffect = this.applyEffect;
+        trait.applyEffect = this.applyEffect;*/
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 
