@@ -39,10 +39,14 @@ public class ProjTraitData {
     }
 
     @ZenGetter("extraInfo")
-    public String getExtraInfo() { return data.extraInfo; }
+    public String getExtraInfo() {
+        return data.extraInfo;
+    }
 
     @ZenSetter("extraInfo")
-    public void setExtraInfo(String extraInfo) { data.extraInfo = extraInfo; }
+    public void setExtraInfo(String extraInfo) {
+        data.extraInfo = extraInfo;
+    }
 
     @ZenGetter("identifier")
     public String getIdentifier() {
