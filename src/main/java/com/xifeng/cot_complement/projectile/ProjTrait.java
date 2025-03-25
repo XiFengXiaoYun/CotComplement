@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.Projectile;
+package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Function;
 import crafttweaker.api.minecraft.CraftTweakerMC;

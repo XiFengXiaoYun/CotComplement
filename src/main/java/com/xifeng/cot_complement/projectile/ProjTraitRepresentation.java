@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.Projectile;
+package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.TraitDataRepresentation;
 import crafttweaker.CraftTweakerAPI;
@@ -10,7 +10,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.oredict.IOreDictEntry;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
-//import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 import stanhebben.zenscript.annotations.*;
@@ -26,17 +26,17 @@ public class ProjTraitRepresentation {
     public ProjTraitRepresentation(IProjectileTrait projTrait) {
         this.trait = projTrait;
     }
-/*
+
     @SuppressWarnings("unused")
-    public static com.xifeng.cot_complement.tool.ToolTraitRepresentation getFromString(String identifier) {
-        IProjectileTrait projTrait = TinkerRegistry.getTrait(identifier);
+    public static ProjTraitRepresentation getFromString(String identifier) {
+        IProjectileTrait projTrait = (IProjectileTrait) TinkerRegistry.getTrait(identifier);
         if(projTrait == null) {
             CraftTweakerAPI.logError("Cannot identify trait " + "<ticontrait:" + identifier + ">");
             return null;
         }
-        return new com.xifeng.cot_complement.tool.ProjTraitRepresentation(projTrait);
+        return new ProjTraitRepresentation(projTrait);
     }
-*/
+
 
     @ZenMethod
     public void addItem(IIngredient item, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {

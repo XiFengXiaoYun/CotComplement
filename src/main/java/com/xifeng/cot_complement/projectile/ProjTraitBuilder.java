@@ -1,4 +1,4 @@
-package com.xifeng.cot_complement.Projectile;
+package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Recipe;
 import com.xifeng.cot_complement.utils.Function;
@@ -7,6 +7,7 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.traits.ITrait;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -53,7 +54,7 @@ public class ProjTraitBuilder {
     @ZenProperty
     public String localizedDescription = null;
 
-    private List<Recipe> recipe = new ArrayList<>();
+    private final List<Recipe> recipe = new ArrayList<>();
 
     public ProjTraitBuilder(String identifier) {
         this.identifier = identifier;
@@ -77,14 +78,14 @@ public class ProjTraitBuilder {
     @ZenMethod
     public ProjTraitRepresentation register() {
         ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel);
-
+        trait.onLaunch = this.onLaunch;
+        trait.onMovement = this.onMovement;
+        trait.onProjectileUpdate = this.onProjectileUpdate;
+        trait.afterProjHit = this.afterProjHit;
         trait.hidden = this.hidden;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
-        trait.onLaunch = this.onLaunch;
-        trait.onProjectileUpdate = this.onProjectileUpdate;
-        trait.onMovement = this.onMovement;
-        trait.afterProjHit = this.afterProjHit;
+
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
         }

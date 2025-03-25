@@ -95,7 +95,7 @@ public class ToolTraitBuilder {
     @ZenProperty
     public String localizedDescription = null;
 
-    private List<Recipe> recipe = new ArrayList<>();
+    private final List<Recipe> recipe = new ArrayList<>();
 
     public ToolTraitBuilder(String identifier) {
         this.identifier = identifier;

@@ -1,7 +1,7 @@
 package com.xifeng.cot_complement.utils;
 
+import com.xifeng.cot_complement.projectile.ProjTraitRepresentation;
 import com.xifeng.cot_complement.tool.ToolTraitRepresentation;
-import com.xifeng.cot_complement.Projectile.ProjTraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.block.IBlockState;
@@ -21,6 +21,36 @@ import crafttweaker.api.world.IWorld;
 import stanhebben.zenscript.annotations.ZenClass;
 
 public class Function {
+
+
+    @ZenClass("mods.cc.traits.OnLaunch")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface OnLaunch {
+        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectileBase, IWorld world, IEntityLivingBase shooter);
+    }
+
+    @ZenClass("mods.cc.traits.OnProjectileUpdate")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface OnProjectileUpdate {
+        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, IItemStack toolStack);
+    }
+
+    @ZenClass("mods.cc.traits.OnMovement")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface OnMovement {
+        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, double slowdown);
+    }
+
+    @ZenClass("mods.cc.traits.AfterProjHit")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface AfterProjHit {
+        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, IItemStack ammoStack, IEntityLivingBase shooter, IEntity target, double impactSpeed);
+    }
+
 
     @ZenClass("mods.cc.traits.Update")
     @ZenRegister
@@ -147,40 +177,5 @@ public class Function {
     @ModOnly("tconstruct")
     public interface ExtraInfo {
         String[] handle(ToolTraitRepresentation thisTrait, IItemStack item, IData tool);
-    }
-/*
-    @ZenClass("mods.cc.traits.ApplyEffect")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface ApplyEffect {
-        void handle(IData rootCompound, IData modifierTag);
-    }
-*/
-    @ZenClass("mods.cc.traits.OnLaunch")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface OnLaunch {
-        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectileBase, IWorld world, IEntityLivingBase shooter);
-    }
-
-    @ZenClass("mods.cc.traits.OnProjectileUpdate")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface OnProjectileUpdate {
-        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, IItemStack toolStack);
-    }
-
-    @ZenClass("mods.cc.traits.OnMovement")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface OnMovement {
-        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, double slowdown);
-    }
-
-    @ZenClass("mods.cc.traits.AfterProjHit")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface AfterProjHit {
-        void handle(ProjTraitRepresentation thisTrait, IEntityArrow projectile, IWorld world, IItemStack ammoStack, IEntityLivingBase shooter, IEntity target, double impactSpeed);
     }
 }
