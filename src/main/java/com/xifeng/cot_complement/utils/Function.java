@@ -178,4 +178,5 @@ public class Function {
     public interface ExtraInfo {
         String[] handle(ToolTraitRepresentation thisTrait, IItemStack item, IData tool);
     }
+
 }

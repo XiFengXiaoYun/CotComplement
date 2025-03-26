@@ -13,6 +13,7 @@ import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
+import slimeknights.tconstruct.library.traits.ITrait;
 import stanhebben.zenscript.annotations.*;
 
 import java.util.Arrays;
@@ -23,18 +24,18 @@ import java.util.Arrays;
 public class ProjTraitRepresentation {
     private final IProjectileTrait trait;
 
-    public ProjTraitRepresentation(IProjectileTrait projTrait) {
-        this.trait = projTrait;
+    public ProjTraitRepresentation(IProjectileTrait trait) {
+        this.trait = trait;
     }
 
     @SuppressWarnings("unused")
     public static ProjTraitRepresentation getFromString(String identifier) {
-        IProjectileTrait projTrait = (IProjectileTrait) TinkerRegistry.getTrait(identifier);
-        if(projTrait == null) {
+        ITrait trait = TinkerRegistry.getTrait(identifier);
+        if(trait == null) {
             CraftTweakerAPI.logError("Cannot identify trait " + "<ticontrait:" + identifier + ">");
             return null;
         }
-        return new ProjTraitRepresentation(projTrait);
+        return new ProjTraitRepresentation((IProjectileTrait) trait);
     }
 
 

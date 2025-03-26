@@ -17,8 +17,8 @@ import javax.annotation.Nullable;
 public class ProjTrait extends ProjectileModifierTrait implements IProjectileTrait {
 
     Function.OnLaunch onLaunch = null;
-    Function.OnMovement onMovement = null;
     Function.OnProjectileUpdate onProjectileUpdate = null;
+    Function.OnMovement onMovement = null;
     Function.AfterProjHit afterProjHit = null;
     String localizedName = null;
     String localizedDescription = null;
