@@ -178,5 +178,20 @@ public class Function {
     public interface ExtraInfo {
         String[] handle(ToolTraitRepresentation thisTrait, IItemStack item, IData tool);
     }
+/*
+    @ZenClass("mods.cc.traits.ApplyToolEffect")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface ApplyToolEffect {
+        void handle(ToolTraitRepresentation thisTrait, IData rootCompound, IData modifierTag);
+    }
 
+    @ZenClass("mods.cc.traits.ApplyProjEffect")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface ApplyProjEffect {
+        void handle(ProjTraitRepresentation thisTrait, IData rootCompound, IData modifierTag);
+    }
+
+ */
 }

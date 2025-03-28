@@ -49,6 +49,7 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
     Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
     Function.ExtraInfo extraInfo = null;
+    //Function.ApplyToolEffect applyEffect = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -222,7 +223,16 @@ public class ToolTrait extends ModifierTrait implements ITrait {
         }
         return super.getExtraInfo(tool, modifierTag);
     }
-
+/*
+    @Override
+    public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+        if (applyEffect != null) {
+            applyEffect.handle(thisTrait, NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
+        } else {
+            super.applyEffect(rootCompound, modifierTag);
+        }
+    }
+*/
     @Override
     public String getLocalizedName() {
         if (localizedName != null) {
@@ -240,6 +250,10 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     }
 
     public void addItem(RecipeMatch recipeMatch) {
+        this.items.add(recipeMatch);
+    }
+
+    public void addRecipeMatch(RecipeMatch recipeMatch) {
         this.items.add(recipeMatch);
     }
 }

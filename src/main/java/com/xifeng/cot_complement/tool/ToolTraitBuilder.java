@@ -6,6 +6,8 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -88,7 +90,10 @@ public class ToolTraitBuilder {
 
     @ZenProperty
     public Function.ExtraInfo extraInfo = null;
-
+/*
+    @ZenProperty
+    public Function.ApplyToolEffect applyEffect =null;
+*/
     @ZenProperty
     public String localizedName = null;
 
@@ -96,6 +101,8 @@ public class ToolTraitBuilder {
     public String localizedDescription = null;
 
     private final List<Recipe> recipe = new ArrayList<>();
+
+    private final List<RecipeMatch> recipes = new ArrayList<>();
 
     public ToolTraitBuilder(String identifier) {
         this.identifier = identifier;
@@ -109,6 +116,11 @@ public class ToolTraitBuilder {
     @ZenMethod
     public void addItem(IIngredient ingredient, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {
         recipe.add(new Recipe(ingredient, amountMatched, amountNeeded));
+    }
+
+    @ZenMethod
+    public void addMultiItem(int amount, IItemStack... items) {
+        recipes.add(new RecipeMatch.ItemCombination(amount, CraftTweakerMC.getItemStacks(items)));
     }
 
     @ZenMethod
@@ -138,11 +150,16 @@ public class ToolTraitBuilder {
         trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
         trait.extraInfo = this.extraInfo;
+        //trait.applyEffect = this.applyEffect;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
+        }
+
+        for (RecipeMatch recipeMatch : recipes) {
+            trait.addItem(recipeMatch);
         }
 
         TinkerRegistry.addTrait(trait);

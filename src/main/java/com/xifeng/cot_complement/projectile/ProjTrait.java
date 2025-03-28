@@ -20,6 +20,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     Function.OnProjectileUpdate onProjectileUpdate = null;
     Function.OnMovement onMovement = null;
     Function.AfterProjHit afterProjHit = null;
+    //Function.ApplyProjEffect applyEffect = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -70,7 +71,16 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             super.afterHit(projectile, world, ammoStack, attacker, target, impactSpeed);
         }
     }
-
+/*
+    @Override
+    public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+        if (applyEffect != null) {
+            applyEffect.handle(thisTrait, NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
+        } else {
+            super.applyEffect(rootCompound, modifierTag);
+        }
+    }
+*/
     @Override
     public String getLocalizedName() {
         if (localizedName != null) {
@@ -88,6 +98,10 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     }
 
     public void addItem(RecipeMatch recipeMatch) {
+        this.items.add(recipeMatch);
+    }
+
+    public void addRecipeMatch(RecipeMatch recipeMatch) {
         this.items.add(recipeMatch);
     }
 }

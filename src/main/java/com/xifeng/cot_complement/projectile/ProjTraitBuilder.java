@@ -6,6 +6,8 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -46,7 +48,10 @@ public class ProjTraitBuilder {
 
     @ZenProperty
     public Function.AfterProjHit afterProjHit = null;
-
+/*
+    @ZenProperty
+    public Function.ApplyProjEffect applyEffect = null;
+*/
     @ZenProperty
     public String localizedName = null;
 
@@ -54,6 +59,8 @@ public class ProjTraitBuilder {
     public String localizedDescription = null;
 
     private final List<Recipe> recipe = new ArrayList<>();
+
+    private final List<RecipeMatch> recipes = new ArrayList<>();
 
     public ProjTraitBuilder(String identifier) {
         this.identifier = identifier;
@@ -70,6 +77,11 @@ public class ProjTraitBuilder {
     }
 
     @ZenMethod
+    public void addMultiItem(int amount, IItemStack... items) {
+        recipes.add(new RecipeMatch.ItemCombination(amount, CraftTweakerMC.getItemStacks(items)));
+    }
+
+    @ZenMethod
     public void removeItem(IItemStack itemStack) {
         recipe.removeIf(Recipe -> Recipe.matches(itemStack));
     }
@@ -81,12 +93,17 @@ public class ProjTraitBuilder {
         trait.onMovement = this.onMovement;
         trait.onProjectileUpdate = this.onProjectileUpdate;
         trait.afterProjHit = this.afterProjHit;
+        //trait.applyEffect = this.applyEffect;
         trait.hidden = this.hidden;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
+        }
+
+        for (RecipeMatch recipe : recipes) {
+            trait.addItem(recipe);
         }
 
         TinkerRegistry.addTrait(trait);
