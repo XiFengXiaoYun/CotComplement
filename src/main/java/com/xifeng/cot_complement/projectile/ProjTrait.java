@@ -2,7 +2,6 @@ package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Function;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.mc1120.data.NBTConverter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -77,7 +76,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     @Override
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
-            applyEffect.handle(thisTrait, NBTConverter.from(rootCompound,true), NBTConverter.from(modifierTag, true));
+            applyEffect.handle(thisTrait, rootCompound, modifierTag);
         } else {
             super.applyEffect(rootCompound, modifierTag);
         }

@@ -191,6 +191,6 @@ public class Function {
     @ZenRegister
     @ModOnly("tconstruct")
     public interface ApplyProjEffect {
-        void handle(ProjTraitRepresentation thisTrait, IData rootCompound, IData modifierTag);
+        void handle(ProjTraitRepresentation thisTrait, NBTTagCompound rootCompound, NBTTagCompound modifierTag);
     }
 }
