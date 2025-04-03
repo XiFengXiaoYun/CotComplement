@@ -90,10 +90,10 @@ public class ToolTraitBuilder {
 
     @ZenProperty
     public Function.ExtraInfo extraInfo = null;
-/*
+
     @ZenProperty
     public Function.ApplyToolEffect applyEffect =null;
-*/
+
     @ZenProperty
     public String localizedName = null;
 
@@ -150,7 +150,7 @@ public class ToolTraitBuilder {
         trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
         trait.extraInfo = this.extraInfo;
-        //trait.applyEffect = this.applyEffect;
+        trait.applyEffect = this.applyEffect;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 

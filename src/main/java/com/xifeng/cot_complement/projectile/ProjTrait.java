@@ -2,10 +2,12 @@ package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Function;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.mc1120.data.NBTConverter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
@@ -20,7 +22,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     Function.OnProjectileUpdate onProjectileUpdate = null;
     Function.OnMovement onMovement = null;
     Function.AfterProjHit afterProjHit = null;
-    //Function.ApplyProjEffect applyEffect = null;
+    Function.ApplyProjEffect applyEffect = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -71,7 +73,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             super.afterHit(projectile, world, ammoStack, attacker, target, impactSpeed);
         }
     }
-/*
+
     @Override
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
@@ -80,7 +82,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
             super.applyEffect(rootCompound, modifierTag);
         }
     }
-*/
+
     @Override
     public String getLocalizedName() {
         if (localizedName != null) {

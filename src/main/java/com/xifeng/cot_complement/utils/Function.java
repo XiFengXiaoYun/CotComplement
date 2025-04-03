@@ -18,6 +18,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
+import net.minecraft.nbt.NBTTagCompound;
 import stanhebben.zenscript.annotations.ZenClass;
 
 public class Function {
@@ -178,12 +179,12 @@ public class Function {
     public interface ExtraInfo {
         String[] handle(ToolTraitRepresentation thisTrait, IItemStack item, IData tool);
     }
-/*
+
     @ZenClass("mods.cc.traits.ApplyToolEffect")
     @ZenRegister
     @ModOnly("tconstruct")
     public interface ApplyToolEffect {
-        void handle(ToolTraitRepresentation thisTrait, IData rootCompound, IData modifierTag);
+        void handle(ToolTraitRepresentation thisTrait, NBTTagCompound rootCompound, NBTTagCompound modifierTag);
     }
 
     @ZenClass("mods.cc.traits.ApplyProjEffect")
@@ -192,6 +193,4 @@ public class Function {
     public interface ApplyProjEffect {
         void handle(ProjTraitRepresentation thisTrait, IData rootCompound, IData modifierTag);
     }
-
- */
 }

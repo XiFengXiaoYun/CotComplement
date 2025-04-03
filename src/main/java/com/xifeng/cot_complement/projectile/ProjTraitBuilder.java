@@ -48,10 +48,10 @@ public class ProjTraitBuilder {
 
     @ZenProperty
     public Function.AfterProjHit afterProjHit = null;
-/*
+
     @ZenProperty
     public Function.ApplyProjEffect applyEffect = null;
-*/
+
     @ZenProperty
     public String localizedName = null;
 
@@ -93,7 +93,7 @@ public class ProjTraitBuilder {
         trait.onMovement = this.onMovement;
         trait.onProjectileUpdate = this.onProjectileUpdate;
         trait.afterProjHit = this.afterProjHit;
-        //trait.applyEffect = this.applyEffect;
+        trait.applyEffect = this.applyEffect;
         trait.hidden = this.hidden;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
