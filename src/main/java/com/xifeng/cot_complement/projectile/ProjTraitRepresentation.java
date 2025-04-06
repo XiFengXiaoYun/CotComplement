@@ -10,10 +10,8 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.oredict.IOreDictEntry;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
-import slimeknights.tconstruct.library.traits.ITrait;
 import stanhebben.zenscript.annotations.*;
 
 import java.util.Arrays;
@@ -27,17 +25,6 @@ public class ProjTraitRepresentation {
     public ProjTraitRepresentation(IProjectileTrait trait) {
         this.trait = trait;
     }
-
-    @SuppressWarnings("unused")
-    public static ProjTraitRepresentation getFromString(String identifier) {
-        ITrait trait = TinkerRegistry.getTrait(identifier);
-        if(trait == null) {
-            CraftTweakerAPI.logError("Cannot identify trait " + "<ticontrait:" + identifier + ">");
-            return null;
-        }
-        return new ProjTraitRepresentation((IProjectileTrait) trait);
-    }
-
 
     @ZenMethod
     public void addItem(IIngredient item, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {
