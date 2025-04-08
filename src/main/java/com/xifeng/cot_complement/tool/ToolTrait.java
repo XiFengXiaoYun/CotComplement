@@ -228,6 +228,7 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
             applyEffect.handle(thisTrait, rootCompound, modifierTag);
+            super.applyEffect(rootCompound, modifierTag);//这个可能会造成一些问题，比如带有该强化的工具标签异常。
         } else {
             super.applyEffect(rootCompound, modifierTag);
         }

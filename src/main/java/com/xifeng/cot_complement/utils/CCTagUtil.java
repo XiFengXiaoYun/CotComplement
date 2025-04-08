@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 public class CCTagUtil {
     @ZenMethod
     public static IData getDataByNBT(NBTTagCompound nbt) {
-        return CraftTweakerMC.getIDataModifyable(nbt);
+        return CraftTweakerMC.getIData(nbt);
     }
 
     @ZenMethod
@@ -26,16 +26,20 @@ public class CCTagUtil {
     }
 
     @ZenMethod
+    public static ProjectileLauncherNBT getLauncherNBT(NBTTagCompound root) {
+        return new ProjectileLauncherNBT(TagUtil.getToolTag(root));
+    }
+//工具类型
+    @ZenMethod
     public static float getAttack(ToolNBT toolNBT) {
         return toolNBT.attack;
     }
 
     @ZenMethod
-    public static void setAttack(NBTTagCompound root, ToolNBT toolNBT, float attack) {
+    public static void setFloat(NBTTagCompound root, ToolNBT toolNBT, float amount, String key) {
         NBTTagCompound nbt = toolNBT.get();
-        System.out.println(nbt);
-        nbt.setFloat("Attack", attack);
-        root.getCompoundTag("Stats").setTag("Attack", nbt.getTag("Attack"));
+        nbt.setFloat(key, amount);
+        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
     }
 
     @ZenMethod
@@ -44,22 +48,8 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static void setAttackSpeedMultiplier(NBTTagCompound root, ToolNBT toolNBT, float attackSpeedMultiplier) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setFloat("AttackSpeedMultiplier", attackSpeedMultiplier);
-        root.getCompoundTag("Stats").setTag("AttackSpeedMultiplier", nbt.getTag("AttackSpeedMultiplier"));
-    }
-
-    @ZenMethod
     public static float getSpeed(ToolNBT toolNBT) {
         return toolNBT.speed;
-    }
-
-    @ZenMethod
-    public static void setSpeed(NBTTagCompound root, ToolNBT toolNBT, float speed) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setFloat("MiningSpeed", speed);
-        root.getCompoundTag("Stats").setTag("MiningSpeed", nbt.getTag("MiningSpeed"));
     }
 
     @ZenMethod
@@ -68,10 +58,10 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static void setDurability(NBTTagCompound root, ToolNBT toolNBT, int dur) {
+    public static void setInt(NBTTagCompound root, ToolNBT toolNBT, int amount, String key) {
         NBTTagCompound nbt = toolNBT.get();
-        nbt.setInteger("Durability", dur);
-        root.getCompoundTag("Stats").setTag("Durability", nbt.getTag("Durability"));
+        nbt.setInteger(key, amount);
+        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
     }
 
     @ZenMethod
@@ -80,34 +70,20 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static void setHarvestLevel(NBTTagCompound root, ToolNBT toolNBT, int level) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setInteger("HarvestLevel", level);
-        root.getCompoundTag("Stats").setTag("HarvestLevel", nbt.getTag("HarvestLevel"));
-    }
-
-    @ZenMethod
     public static int getModifiers(ToolNBT toolNBT) {
         return toolNBT.modifiers;
     }
-
-    @ZenMethod
-    public static void setModifiers(NBTTagCompound root, ToolNBT toolNBT, int mod) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setInteger("FreeModifiers", mod);
-        root.getCompoundTag("Stats").setTag("FreeModifiers", nbt.getTag("FreeModifiers"));
-    }
-
+//发射器类型
     @ZenMethod
     public static float getDrawSpeed(ProjectileLauncherNBT projectileLauncherNBT) {
         return projectileLauncherNBT.drawSpeed;
     }
 
     @ZenMethod
-    public static void setDrawSpeed(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float speed) {
+    public static void setLauncherFloat(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float amount, String key) {
         NBTTagCompound nbt = projectileLauncherNBT.get();
-        nbt.setFloat("DrawSpeed", speed);
-        root.getCompoundTag("Stats").setTag("DrawSpeed", nbt.getTag("DrawSpeed"));
+        nbt.setFloat(key, amount);
+        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
     }
 
     @ZenMethod
@@ -116,23 +92,8 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static void setRange(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float range) {
-        NBTTagCompound nbt = projectileLauncherNBT.get();
-        nbt.setFloat("Range", range);
-        root.getCompoundTag("Stats").setTag("Range", nbt.getTag("Range"));
-    }
-
-    @ZenMethod
     public static float getBonusDmg(ProjectileLauncherNBT projectileLauncherNBT) {
         return projectileLauncherNBT.bonusDamage;
     }
-
-    @ZenMethod
-    public static void setBonusDmg(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float dmg) {
-        NBTTagCompound nbt = projectileLauncherNBT.get();
-        nbt.setFloat("ProjectileBonusDamage", dmg);
-        root.getCompoundTag("Stats").setTag("ProjectileBonusDamage", nbt.getTag("ProjectileBonusDamage"));
-    }
 }
-
 

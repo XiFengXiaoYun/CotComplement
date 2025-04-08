@@ -77,6 +77,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
             applyEffect.handle(thisTrait, rootCompound, modifierTag);
+            super.applyEffect(rootCompound, modifierTag);//可能会导致一些问题
         } else {
             super.applyEffect(rootCompound, modifierTag);
         }
