@@ -1,9 +1,12 @@
 package com.xifeng.cot_complement.utils;
 
+import com.google.common.collect.Multimap;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.data.IData;
+import crafttweaker.api.entity.attribute.IEntityAttributeModifier;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -26,13 +29,24 @@ public class CCTagUtil {
     }
 
     @ZenMethod
+    public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, IEntityAttributeModifier entityModifier) {
+        AttributeModifier modifier = CraftTweakerMC.getAttributeModifier(entityModifier);
+        attributeMap.put(attributeName, modifier);
+    }
+
+    @ZenMethod
     public static ProjectileLauncherNBT getLauncherNBT(NBTTagCompound root) {
         return new ProjectileLauncherNBT(TagUtil.getToolTag(root));
     }
 //工具类型
     @ZenMethod
-    public static float getAttack(ToolNBT toolNBT) {
-        return toolNBT.attack;
+    public static float getFloat(ToolNBT toolNBT, String stats, String key) {
+        return toolNBT.get().getCompoundTag(stats).getFloat(key);
+    }
+
+    @ZenMethod
+    public static int getInt(ToolNBT toolNBT, String stats, String key) {
+        return toolNBT.get().getCompoundTag(stats).getInteger(key);
     }
 
     @ZenMethod
@@ -43,57 +57,22 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static float getAttackSpeed(ToolNBT toolNBT) {
-        return toolNBT.attackSpeedMultiplier;
-    }
-
-    @ZenMethod
-    public static float getSpeed(ToolNBT toolNBT) {
-        return toolNBT.speed;
-    }
-
-    @ZenMethod
-    public static int getDurability(ToolNBT toolNBT) {
-        return toolNBT.durability;
-    }
-
-    @ZenMethod
     public static void setInt(NBTTagCompound root, ToolNBT toolNBT, int amount, String key) {
         NBTTagCompound nbt = toolNBT.get();
         nbt.setInteger(key, amount);
         root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
     }
-
-    @ZenMethod
-    public static int getHarvestLevel(ToolNBT toolNBT) {
-        return toolNBT.harvestLevel;
-    }
-
-    @ZenMethod
-    public static int getModifiers(ToolNBT toolNBT) {
-        return toolNBT.modifiers;
-    }
 //发射器类型
     @ZenMethod
-    public static float getDrawSpeed(ProjectileLauncherNBT projectileLauncherNBT) {
-        return projectileLauncherNBT.drawSpeed;
+    public static float getFloat(ProjectileLauncherNBT projectileLauncherNBT, String stats, String key) {
+        return projectileLauncherNBT.get().getCompoundTag(stats).getFloat(key);
     }
 
     @ZenMethod
-    public static void setLauncherFloat(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float amount, String key) {
+    public static void setFloat(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float amount, String key) {
         NBTTagCompound nbt = projectileLauncherNBT.get();
         nbt.setFloat(key, amount);
         root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
-    }
-
-    @ZenMethod
-    public static float getRange(ProjectileLauncherNBT projectileLauncherNBT) {
-        return projectileLauncherNBT.range;
-    }
-
-    @ZenMethod
-    public static float getBonusDmg(ProjectileLauncherNBT projectileLauncherNBT) {
-        return projectileLauncherNBT.bonusDamage;
     }
 }
 

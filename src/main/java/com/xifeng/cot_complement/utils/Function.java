@@ -1,5 +1,6 @@
 package com.xifeng.cot_complement.utils;
 
+import com.google.common.collect.Multimap;
 import com.xifeng.cot_complement.projectile.ProjTraitRepresentation;
 import com.xifeng.cot_complement.tool.ToolTraitRepresentation;
 import crafttweaker.annotations.ModOnly;
@@ -9,6 +10,7 @@ import crafttweaker.api.data.IData;
 import crafttweaker.api.enchantments.IEnchantmentDefinition;
 import crafttweaker.api.entity.IEntity;
 import crafttweaker.api.entity.IEntityArrow;
+import crafttweaker.api.entity.IEntityEquipmentSlot;
 import crafttweaker.api.entity.IEntityLivingBase;
 import crafttweaker.api.event.BlockBreakEvent;
 import crafttweaker.api.event.BlockHarvestDropsEvent;
@@ -18,6 +20,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.player.IPlayer;
 import crafttweaker.api.world.IBlockPos;
 import crafttweaker.api.world.IWorld;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.nbt.NBTTagCompound;
 import stanhebben.zenscript.annotations.ZenClass;
 
@@ -192,5 +195,12 @@ public class Function {
     @ModOnly("tconstruct")
     public interface ApplyProjEffect {
         void handle(ProjTraitRepresentation thisTrait, NBTTagCompound rootCompound, NBTTagCompound modifierTag);
+    }
+
+    @ZenClass("mods.cc.traits.GetAttributeModifiers")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface getAttributeModifiers {
+        void handle(ToolTraitRepresentation trait, IEntityEquipmentSlot slot, IItemStack item, Multimap<String, AttributeModifier> attributeMap);
     }
 }

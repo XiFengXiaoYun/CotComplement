@@ -1,5 +1,6 @@
 package com.xifeng.cot_complement.tool;
 
+import com.google.common.collect.Multimap;
 import com.xifeng.cot_complement.utils.Function;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.data.NBTConverter;
@@ -12,7 +13,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -50,6 +53,7 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
     Function.ExtraInfo extraInfo = null;
     Function.ApplyToolEffect applyEffect = null;
+    Function.getAttributeModifiers getAttributeModifiers = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -231,6 +235,15 @@ public class ToolTrait extends ModifierTrait implements ITrait {
             super.applyEffect(rootCompound, modifierTag);//这个可能会造成一些问题，比如带有该强化的工具标签异常。
         } else {
             super.applyEffect(rootCompound, modifierTag);
+        }
+    }
+
+    @Override
+    public void getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack, Multimap<String, AttributeModifier> attributeMap) {
+        if (getAttributeModifiers != null) {
+            getAttributeModifiers.handle(thisTrait, CraftTweakerMC.getIEntityEquipmentSlot(slot), CraftTweakerMC.getIItemStack(stack), attributeMap);
+        } else {
+            super.getAttributeModifiers(slot, stack, attributeMap);
         }
     }
 

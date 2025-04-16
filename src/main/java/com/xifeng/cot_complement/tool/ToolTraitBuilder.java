@@ -95,6 +95,9 @@ public class ToolTraitBuilder {
     public Function.ApplyToolEffect applyEffect =null;
 
     @ZenProperty
+    public Function.getAttributeModifiers getAttributeModifiers = null;
+
+    @ZenProperty
     public String localizedName = null;
 
     @ZenProperty
@@ -151,6 +154,7 @@ public class ToolTraitBuilder {
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
         trait.extraInfo = this.extraInfo;
         trait.applyEffect = this.applyEffect;
+        trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
 
