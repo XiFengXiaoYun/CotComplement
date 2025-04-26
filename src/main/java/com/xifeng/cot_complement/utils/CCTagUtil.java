@@ -5,8 +5,10 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.data.IData;
 import crafttweaker.api.entity.attribute.IEntityAttributeModifier;
+import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -35,44 +37,37 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static ProjectileLauncherNBT getLauncherNBT(NBTTagCompound root) {
-        return new ProjectileLauncherNBT(TagUtil.getToolTag(root));
-    }
-//工具类型
-    @ZenMethod
-    public static float getFloat(ToolNBT toolNBT, String stats, String key) {
-        return toolNBT.get().getCompoundTag(stats).getFloat(key);
+    public static IData getModMap(IData data) {
+        NBTTagCompound root = CraftTweakerMC.getNBTCompound(data);
+        return CraftTweakerMC.getIData(TagUtil.getModifiersTagList(root));
     }
 
     @ZenMethod
-    public static int getInt(ToolNBT toolNBT, String stats, String key) {
-        return toolNBT.get().getCompoundTag(stats).getInteger(key);
+    public static IData getModMap(IItemStack item) {
+        ItemStack itemStack = CraftTweakerMC.getItemStack(item);
+        return CraftTweakerMC.getIData(TagUtil.getModifiersTagList(itemStack));
     }
 
     @ZenMethod
-    public static void setFloat(NBTTagCompound root, ToolNBT toolNBT, float amount, String key) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setFloat(key, amount);
-        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
+    public static IData getBaseModMap(IData data) {
+        NBTTagCompound root = CraftTweakerMC.getNBTCompound(data);
+        return CraftTweakerMC.getIData(TagUtil.getBaseModifiersTagList(root));
     }
 
     @ZenMethod
-    public static void setInt(NBTTagCompound root, ToolNBT toolNBT, int amount, String key) {
-        NBTTagCompound nbt = toolNBT.get();
-        nbt.setInteger(key, amount);
-        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
+    public static IData getBaseModMap(IItemStack item) {
+        ItemStack itemStack = CraftTweakerMC.getItemStack(item);
+        return CraftTweakerMC.getIData(TagUtil.getBaseModifiersTagList(itemStack));
     }
-//发射器类型
+//最终方案！
     @ZenMethod
-    public static float getFloat(ProjectileLauncherNBT projectileLauncherNBT, String stats, String key) {
-        return projectileLauncherNBT.get().getCompoundTag(stats).getFloat(key);
+    public static void setFloat(NBTTagCompound root, float amount, String key) {
+        root.getCompoundTag("Stats").setFloat(key, amount);
     }
 
     @ZenMethod
-    public static void setFloat(NBTTagCompound root, ProjectileLauncherNBT projectileLauncherNBT, float amount, String key) {
-        NBTTagCompound nbt = projectileLauncherNBT.get();
-        nbt.setFloat(key, amount);
-        root.getCompoundTag("Stats").setTag(key, nbt.getTag(key));
+    public static void setInt(NBTTagCompound root, int amount, String key) {
+        root.getCompoundTag("Stats").setInteger(key, amount);
     }
 }
 
