@@ -11,27 +11,35 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 public interface IBowShootEvent extends IPlayerEvent {
     @ZenGetter("ammo")
-     IItemStack getAmmo();
+    @ZenMethod
+    IItemStack getAmmo();
 
     @ZenGetter("bow")
+    @ZenMethod
     IItemStack getBow();
 
     @ZenGetter("useTime")
+    @ZenMethod
     int getUseTime();
 
     @ZenGetter("projectileCount")
+    @ZenMethod
     int getProjCount();
 
     @ZenGetter("baseInaccuracy")
+    @ZenMethod
     float getBaseInaccuracy();
 
     @ZenGetter("bonusInaccuracy")
+    @ZenMethod
     float getBonusInaccuracy();
 
     @ZenGetter("consumeAmmoPerProjectile")
+    @ZenMethod
     boolean consumeAmmoPerProjectile();
 
     @ZenGetter("consumeDurabilityPerProjectile")
+    @ZenMethod
     boolean consumeDurabilityPerProjectile();
 
     @ZenMethod
