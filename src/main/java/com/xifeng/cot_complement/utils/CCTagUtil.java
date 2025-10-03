@@ -10,11 +10,12 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import stanhebben.zenscript.annotations.*;
 
 import slimeknights.tconstruct.library.utils.TagUtil;
+
+import java.util.UUID;
 
 @ZenClass("mods.cc.CCTagUtil")
 @ZenRegister
@@ -31,8 +32,14 @@ public class CCTagUtil {
     }
 
     @ZenMethod
-    public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, IEntityAttributeModifier entityModifier) {
-        AttributeModifier modifier = CraftTweakerMC.getAttributeModifier(entityModifier);
+    public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, IEntityAttributeModifier entityModifier, String uuid) {
+        AttributeModifier modifier1 = new AttributeModifier(UUID.fromString(uuid), entityModifier.getName(), entityModifier.getAmount(), entityModifier.getOperation());
+        attributeMap.put(attributeName, modifier1);
+    }
+
+    @ZenMethod
+    public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, String uuid, String modifierName, double amount, int operation) {
+        AttributeModifier modifier = new AttributeModifier(UUID.fromString(uuid), modifierName, amount, operation);
         attributeMap.put(attributeName, modifier);
     }
 
