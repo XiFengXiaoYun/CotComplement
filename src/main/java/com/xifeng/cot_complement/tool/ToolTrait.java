@@ -25,6 +25,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
 
@@ -57,6 +58,7 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
+    ModifierAspect aspect = null;
     private final ToolTraitRepresentation thisTrait = new ToolTraitRepresentation(this);
 
     public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {

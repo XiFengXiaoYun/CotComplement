@@ -9,6 +9,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -36,6 +37,9 @@ public class ToolTraitBuilder {
 
     @ZenProperty
     public boolean hidden = false;
+
+   // @ZenProperty
+    //public ModifierAspect aspect = null;
 
     @ZenProperty
     public Function.AfterBlockBreak afterBlockBreak = null;
@@ -157,6 +161,7 @@ public class ToolTraitBuilder {
         trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
+        //trait.aspect = this.aspect;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);

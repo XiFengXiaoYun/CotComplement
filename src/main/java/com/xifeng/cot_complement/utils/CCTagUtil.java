@@ -10,6 +10,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import stanhebben.zenscript.annotations.*;
 
@@ -30,6 +31,11 @@ public class CCTagUtil {
     public static ToolNBT getToolNBT(NBTTagCompound root) {
         return new ToolNBT(TagUtil.getToolTag(root));
     }
+/*
+    @ZenMethod
+    public static ModifierAspect getAspect()
+
+ */
 
     @ZenMethod
     public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, IEntityAttributeModifier entityModifier, String uuid) {
