@@ -1,6 +1,7 @@
 package com.xifeng.cot_complement.bow.modifier;
 
 import com.xifeng.cot_complement.bow.trait.IBowTrait;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -27,8 +28,8 @@ public abstract class BowModifierTrait extends ModifierTrait implements IBowTrai
     }
 
     @Override
-    public float calcArrowDamage(ItemStack bow, ItemStack arrow, int charge, EntityLivingBase helder, EntityLivingBase target, World world, float damage) {
-        return damage;
+    public float calcArrowDamage(ItemStack bow, ItemStack arrow, EntityLivingBase helder, Entity target, World world, float oldDamage, float newDamage) {
+        return oldDamage;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.xifeng.cot_complement.utils;
 
 import com.google.common.collect.Multimap;
+import com.xifeng.cot_complement.bow.cot.BowTraitRepresentation;
 import com.xifeng.cot_complement.projectile.ProjTraitRepresentation;
 import com.xifeng.cot_complement.tool.ToolTraitRepresentation;
 import crafttweaker.annotations.ModOnly;
@@ -202,5 +203,33 @@ public class Function {
     @ModOnly("tconstruct")
     public interface getAttributeModifiers {
         void handle(ToolTraitRepresentation trait, IEntityEquipmentSlot slot, IItemStack item, Multimap<String, AttributeModifier> attributeMap);
+    }
+
+    @ZenClass("mods.cc.traits.onArrowNock")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface onArrowNock {
+        void handle(BowTraitRepresentation trait, IItemStack bow, IEntityLivingBase helder, IWorld world);
+    }
+
+    @ZenClass("mods.cc.traits.onArrowLoose")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface onArrowLoose {
+        void handle(BowTraitRepresentation trait, IItemStack bow, int charge, IEntityLivingBase helder, IWorld world);
+    }
+
+    @ZenClass("mods.cc.traits.calcArrowDamage")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface calcArrowDamage {
+        float handle(BowTraitRepresentation trait, IItemStack bow, IItemStack arrow, IEntityLivingBase helder, IEntity target, IWorld world, float oldDamage, float newDamage);
+    }
+
+    @ZenClass("mods.cc.traits.onDrawingBow")
+    @ZenRegister
+    @ModOnly("tconstruct")
+    public interface onDrawingBow {
+        void handle(BowTraitRepresentation trait, IItemStack bow, IEntityLivingBase helder, IWorld world);
     }
 }

@@ -1,5 +1,6 @@
 package com.xifeng.cot_complement.bow.trait;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -27,8 +28,8 @@ public abstract class AbstractBowTrait extends AbstractTrait implements IBowTrai
     }
 
     @Override
-    public float calcArrowDamage(ItemStack bow, ItemStack arrow, int charge, EntityLivingBase helder, EntityLivingBase target, World world, float damage) {
-        return damage;
+    public float calcArrowDamage(ItemStack bow, ItemStack arrow, EntityLivingBase helder, Entity target, World world, float oldDamage, float newDamage) {
+        return oldDamage;
     }
 
     @Override
