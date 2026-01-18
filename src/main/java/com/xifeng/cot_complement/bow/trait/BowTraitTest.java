@@ -33,8 +33,9 @@ public class BowTraitTest extends AbstractBowTrait {
     @Override
     public float calcArrowDamage(ItemStack bow, ItemStack arrow, EntityLivingBase helder, Entity target, World world, float oldDamage, float newDamage) {
         if(!world.isRemote) {
-            target.attackEntityFrom(DamageSource.causeMobDamage(helder), 1.0f);
+            target.attackEntityFrom(DamageSource.causeMobDamage(helder), 1145.0f);
+            System.out.printf(target.getName());
         }
-        return oldDamage - 1.0f;
+        return 0.0f;
     }
 }
