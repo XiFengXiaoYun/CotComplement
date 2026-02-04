@@ -69,17 +69,18 @@ public class BowTraitEvents {
             EntityProjectileBase projectileBase = (EntityProjectileBase) event.getSource().getImmediateSource();
             TinkerProjectileHandler handler = projectileBase.tinkerProjectile;
             ItemStack bow = handler.getLaunchingStack();
-            ItemStack arrow = handler.getItemStack();
-            float baseAmount = event.getAmount();
-            float newAmount = baseAmount;
-            //System.out.printf("old amount is %f", amount);
-            if(!ToolHelper.isBroken(bow)) {
-                for(ITrait trait : TinkerUtil.getTraitsOrdered(bow))  {
-                    if(trait instanceof IBowTrait) {
-                        newAmount =  ((IBowTrait) trait).calcArrowDamage(bow, arrow, livingBase, target, livingBase.world, baseAmount, newAmount);
+            if(bow.getItem() instanceof BowCore) {
+                ItemStack arrow = ((BowCore) bow.getItem()).findAmmo(bow, livingBase);
+                float baseAmount = event.getAmount();
+                float newAmount = baseAmount;
+                if(!ToolHelper.isBroken(bow)) {
+                    for(ITrait trait : TinkerUtil.getTraitsOrdered(bow))  {
+                        if(trait instanceof IBowTrait) {
+                            newAmount =  ((IBowTrait) trait).calcArrowDamage(bow, arrow, livingBase, target, livingBase.world, baseAmount, newAmount);
+                        }
                     }
+                    event.setAmount(newAmount);
                 }
-                event.setAmount(newAmount);
             }
         }
     }
