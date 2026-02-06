@@ -2,6 +2,7 @@ package com.xifeng.cot_complement.tool;
 
 import com.xifeng.cot_complement.utils.Recipe;
 import com.xifeng.cot_complement.utils.Function;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -38,8 +39,8 @@ public class ToolTraitBuilder {
     @ZenProperty
     public boolean hidden = false;
 
-   // @ZenProperty
-    //public ModifierAspect aspect = null;
+    @ZenProperty
+    public ModifierAspect[] aspect = null;
 
     @ZenProperty
     public Function.AfterBlockBreak afterBlockBreak = null;
@@ -136,7 +137,7 @@ public class ToolTraitBuilder {
     }
 
     @ZenMethod
-    public ToolTraitRepresentation register() {
+    public TraitRepresentation register() {
         ToolTrait trait = new ToolTrait(identifier, color, maxLevel, countPerLevel);
         trait.afterBlockBreak = this.afterBlockBreak;
         trait.beforeBlockBreak = this.beforeBlockBreak;
@@ -161,7 +162,7 @@ public class ToolTraitBuilder {
         trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
-        //trait.aspect = this.aspect;
+        trait.aspect = this.aspect;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
@@ -173,6 +174,6 @@ public class ToolTraitBuilder {
 
         TinkerRegistry.addTrait(trait);
 
-        return new ToolTraitRepresentation(trait);
+        return new TraitRepresentation(trait);
     }
 }

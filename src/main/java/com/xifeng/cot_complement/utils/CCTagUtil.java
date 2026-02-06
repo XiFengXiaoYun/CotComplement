@@ -30,11 +30,6 @@ public class CCTagUtil {
     public static ToolNBT getToolNBT(NBTTagCompound root) {
         return new ToolNBT(TagUtil.getToolTag(root));
     }
-/*
-    @ZenMethod
-    public static ModifierAspect getAspect()
-
- */
 
     @ZenMethod
     public static void addModifier(Multimap<String, AttributeModifier> attributeMap, String attributeName, IEntityAttributeModifier entityModifier, String uuid) {

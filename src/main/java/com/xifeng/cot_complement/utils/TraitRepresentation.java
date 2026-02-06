@@ -1,6 +1,5 @@
-package com.xifeng.cot_complement.tool;
+package com.xifeng.cot_complement.utils;
 
-import com.xifeng.cot_complement.utils.TraitDataRepresentation;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
@@ -11,33 +10,26 @@ import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
-import stanhebben.zenscript.annotations.*;
+import stanhebben.zenscript.annotations.Optional;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenGetter;
+import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
 
-@ZenClass("mods.cc.tic.ToolTrait")
+@ZenClass("mods.cc.tic.Trait")
 @ZenRegister
 @ModOnly("tconstruct")
-public class ToolTraitRepresentation {
+public class TraitRepresentation {
     private final ITrait trait;
-
-    public ToolTraitRepresentation(ITrait trait) {
+    public TraitRepresentation(ITrait trait) {
         this.trait = trait;
     }
-
-    @SuppressWarnings("unused")
-    public static ToolTraitRepresentation getFromString(String identifier) {
-        ITrait trait = TinkerRegistry.getTrait(identifier);
-        if(trait == null) {
-            CraftTweakerAPI.logError("Cannot identify trait " + "<ticontrait:" + identifier + ">");
-            return null;
-        }
-        return new ToolTraitRepresentation(trait);
+    public ITrait getTrait() {
+        return trait;
     }
-
 
     @ZenMethod
     public void addItem(IIngredient item, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {
@@ -103,10 +95,5 @@ public class ToolTraitRepresentation {
         }
         CraftTweakerAPI.logError("Trait " + trait.getIdentifier() + " is not applicable to the getData function!");
         return null;
-    }
-
-
-    public ITrait getTrait() {
-        return trait;
     }
 }

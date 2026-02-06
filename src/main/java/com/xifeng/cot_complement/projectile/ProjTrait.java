@@ -1,6 +1,7 @@
 package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Function;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,7 +26,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
-    private final ProjTraitRepresentation thisTrait = new ProjTraitRepresentation(this);
+    private final TraitRepresentation thisTrait = new TraitRepresentation(this);
 
     public ProjTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {
         super(identifier, color, maxLevel, countPerLevel);

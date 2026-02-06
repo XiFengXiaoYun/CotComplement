@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -30,7 +31,7 @@ public class BowTraitEvents {
     public static void onArrowNock(ArrowNockEvent event) {
         EntityPlayer player = event.getEntityPlayer();
         World world = event.getWorld();
-        if(world.isRemote || player == null || event.isCanceled()) return;
+        if(player == null || event.isCanceled()) return;
         ItemStack bow = event.getBow();
         if(isBow(bow) && !ToolHelper.isBroken(bow)) {
             TinkerUtil.getTraitsOrdered(bow).forEach(
@@ -46,7 +47,7 @@ public class BowTraitEvents {
     public static void onArrowLoose(ArrowLooseEvent event) {
         EntityPlayer player = event.getEntityPlayer();
         World world = event.getWorld();
-        if(world.isRemote || player == null || event.isCanceled()) return;
+        if(player == null || event.isCanceled()) return;
         ItemStack bow = event.getBow();
         int charge = event.getCharge();
         if(isBow(bow) && !ToolHelper.isBroken(bow)) {
@@ -61,7 +62,7 @@ public class BowTraitEvents {
 
     @SubscribeEvent
     public static void onArrowAttack(LivingHurtEvent event) {
-        if(event.isCanceled() || event.getEntity().world.isRemote || !(event.getSource().getImmediateSource() instanceof EntityProjectileBase)) return;
+        if(event.isCanceled() || !(event.getSource().getImmediateSource() instanceof EntityProjectileBase)) return;
         Entity entity = event.getSource().getTrueSource();
         Entity target = event.getEntity();
         if(entity instanceof EntityLivingBase) {
@@ -73,12 +74,13 @@ public class BowTraitEvents {
                 ItemStack arrow = ((BowCore) bow.getItem()).findAmmo(bow, livingBase);
                 float baseAmount = event.getAmount();
                 float newAmount = baseAmount;
-                if(!ToolHelper.isBroken(bow)) {
+                if(!ToolHelper.isBroken(bow) && !ToolHelper.isBroken(arrow)) {
                     for(ITrait trait : TinkerUtil.getTraitsOrdered(bow))  {
                         if(trait instanceof IBowTrait) {
                             newAmount =  ((IBowTrait) trait).calcArrowDamage(bow, arrow, livingBase, target, livingBase.world, baseAmount, newAmount);
                         }
                     }
+                    System.out.println(arrow.getDisplayName());
                     event.setAmount(newAmount);
                 }
             }
@@ -87,7 +89,6 @@ public class BowTraitEvents {
 
     @SubscribeEvent
     public static void onDrawingBow(LivingEntityUseItemEvent.Tick event) {
-        if(event.getEntityLiving().world.isRemote) return;
         ItemStack bow = event.getItem();
         if(isBow(bow) && !ToolHelper.isBroken(bow)) {
             TinkerUtil.getTraitsOrdered(bow).forEach(trait -> {

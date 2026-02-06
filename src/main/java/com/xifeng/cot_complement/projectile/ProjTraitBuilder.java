@@ -2,6 +2,7 @@ package com.xifeng.cot_complement.projectile;
 
 import com.xifeng.cot_complement.utils.Recipe;
 import com.xifeng.cot_complement.utils.Function;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -87,7 +88,7 @@ public class ProjTraitBuilder {
     }
 
     @ZenMethod
-    public ProjTraitRepresentation register() {
+    public TraitRepresentation register() {
         ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel);
         trait.onLaunch = this.onLaunch;
         trait.onMovement = this.onMovement;
@@ -108,6 +109,6 @@ public class ProjTraitBuilder {
 
         TinkerRegistry.addTrait(trait);
 
-        return new ProjTraitRepresentation(trait);
+        return new TraitRepresentation(trait);
     }
 }

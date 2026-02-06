@@ -3,6 +3,7 @@ package com.xifeng.cot_complement.bow.cot;
 import com.xifeng.cot_complement.bow.modifier.BowModifierTrait;
 import com.xifeng.cot_complement.bow.trait.IBowTrait;
 import com.xifeng.cot_complement.utils.Function;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,7 +19,7 @@ public class BowTrait extends BowModifierTrait implements IBowTrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
-    private final BowTraitRepresentation thisTrait =  new BowTraitRepresentation(this);
+    private final TraitRepresentation thisTrait =  new TraitRepresentation(this);
 
     public BowTrait(String id, int color, int maxLevel, int countPerLevel) {
         super(id, color, maxLevel, countPerLevel);

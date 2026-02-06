@@ -2,6 +2,7 @@ package com.xifeng.cot_complement.bow.cot;
 
 import com.xifeng.cot_complement.utils.Function;
 import com.xifeng.cot_complement.utils.Recipe;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -74,7 +75,7 @@ public class BowTraitBuilder {
     }
 
     @ZenMethod
-    public BowTraitRepresentation register() {
+    public TraitRepresentation register() {
         BowTrait trait = new BowTrait(identifier, color, maxLevel, countPerLevel);
         trait.onArrowNock = onArrowNock;
         trait.onArrowLoose = onArrowLoose;
@@ -87,6 +88,6 @@ public class BowTraitBuilder {
             trait.addItem(recipes);
         }
         TinkerRegistry.addTrait(trait);
-        return new BowTraitRepresentation(trait);
+        return new TraitRepresentation(trait);
     }
 }

@@ -2,6 +2,7 @@ package com.xifeng.cot_complement.tool;
 
 import com.google.common.collect.Multimap;
 import com.xifeng.cot_complement.utils.Function;
+import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.data.NBTConverter;
 import crafttweaker.mc1120.enchantments.MCEnchantmentDefinition;
@@ -58,12 +59,11 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
-    ModifierAspect aspect = null;
-    private final ToolTraitRepresentation thisTrait = new ToolTraitRepresentation(this);
+    ModifierAspect[] aspect = null;
+    private final TraitRepresentation thisTrait = new TraitRepresentation(this);
 
     public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {
         super(identifier, color, maxLevel, countPerLevel);
-
     }
 
     @Override
@@ -263,6 +263,15 @@ public class ToolTrait extends ModifierTrait implements ITrait {
             return localizedDescription;
         }
         return super.getLocalizedDesc();
+    }
+
+    @Override
+    public void addAspects(ModifierAspect... aspects) {
+        if(aspect != null) {
+            this.aspects.addAll(Arrays.asList(aspect));
+        } else {
+            super.addAspects(aspects);
+        }
     }
 
     public void addItem(RecipeMatch recipeMatch) {
