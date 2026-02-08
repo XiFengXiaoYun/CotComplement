@@ -3,6 +3,9 @@ package com.xifeng.cot_complement.projectile;
 import com.xifeng.cot_complement.utils.Function;
 import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.mc1120.data.NBTConverter;
+import crafttweaker.mc1120.enchantments.MCEnchantmentDefinition;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -10,11 +13,14 @@ import net.minecraft.world.World;
 import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProjTrait extends ProjectileModifierTrait implements IProjectileTrait {
 
@@ -23,6 +29,9 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     Function.OnMovement onMovement = null;
     Function.AfterProjHit afterProjHit = null;
     Function.ApplyProjEffect applyEffect = null;
+    Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
+    Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
+    Function.ExtraInfo extraInfo = null;
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
@@ -78,10 +87,34 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
             applyEffect.handle(thisTrait, rootCompound, modifierTag);
-            super.applyEffect(rootCompound, modifierTag);//可能会导致一些问题
+            super.applyEffect(rootCompound, modifierTag);
         } else {
             super.applyEffect(rootCompound, modifierTag);
         }
+    }
+
+    @Override
+    public boolean canApplyTogether(IToolMod otherModifier) {
+        if (canApplyTogetherTrait != null) {
+            return canApplyTogetherTrait.handle(thisTrait, otherModifier.getIdentifier());
+        }
+        return super.canApplyTogether(otherModifier);
+    }
+
+    @Override
+    public boolean canApplyTogether(Enchantment enchantment) {
+        if (canApplyTogetherEnchantment != null) {
+            return canApplyTogetherEnchantment.handle(thisTrait, new MCEnchantmentDefinition(enchantment));
+        }
+        return super.canApplyTogether(enchantment);
+    }
+
+    @Override
+    public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+        if (extraInfo != null) {
+            return Arrays.asList(extraInfo.handle(thisTrait, CraftTweakerMC.getIItemStack(tool), NBTConverter.from(modifierTag, true)));
+        }
+        return super.getExtraInfo(tool, modifierTag);
     }
 
     @Override

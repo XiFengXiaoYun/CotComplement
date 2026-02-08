@@ -28,9 +28,11 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,8 +61,10 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
-    ModifierAspect[] aspect = null;
+    int modifierRequired = 1;
+    //List<String> category = new ArrayList<>();
     private final TraitRepresentation thisTrait = new TraitRepresentation(this);
+    public List<String> cat = new ArrayList<>();
 
     public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {
         super(identifier, color, maxLevel, countPerLevel);
@@ -234,7 +238,7 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
         if (applyEffect != null) {
             applyEffect.handle(thisTrait, rootCompound, modifierTag);
-            super.applyEffect(rootCompound, modifierTag);//这个可能会造成一些问题，比如带有该强化的工具标签异常。
+            super.applyEffect(rootCompound, modifierTag);
         } else {
             super.applyEffect(rootCompound, modifierTag);
         }
@@ -267,11 +271,18 @@ public class ToolTrait extends ModifierTrait implements ITrait {
 
     @Override
     public void addAspects(ModifierAspect... aspects) {
-        if(aspect != null) {
-            this.aspects.addAll(Arrays.asList(aspect));
-        } else {
-            super.addAspects(aspects);
+        if(modifierRequired != 1) {
+            this.aspects.removeIf(aspect -> aspect instanceof ModifierAspect.FreeModifierAspect);
+            ModifierAspect.FreeModifierAspect free = new ModifierAspect.FreeModifierAspect(modifierRequired);
+            this.aspects.add(free);
+        }/*
+        if(cat != null && !cat.isEmpty()) {
+            this.aspects.add(getAspect(cat));
+            System.out.println("Added a category");
+        } else if(cat == null) {
+            System.out.println("category is null");
         }
+        */
     }
 
     public void addItem(RecipeMatch recipeMatch) {
@@ -280,5 +291,13 @@ public class ToolTrait extends ModifierTrait implements ITrait {
 
     public void addRecipeMatch(RecipeMatch recipeMatch) {
         this.items.add(recipeMatch);
+    }
+
+    private ModifierAspect.CategoryAnyAspect getAspect(List<String> categories) {
+        Category[] cats = new Category[categories.size()];
+        for (int i = 0; i < categories.size(); i++) {
+            cats[i] = Category.categories.get(categories.get(i));
+        }
+        return new ModifierAspect.CategoryAnyAspect(cats);
     }
 }

@@ -10,7 +10,6 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -40,7 +39,7 @@ public class ToolTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
-    public ModifierAspect[] aspect = null;
+    public int modifierRequired = 1;
 
     @ZenProperty
     public Function.AfterBlockBreak afterBlockBreak = null;
@@ -112,6 +111,8 @@ public class ToolTraitBuilder {
 
     private final List<RecipeMatch> recipes = new ArrayList<>();
 
+    //public List<String> category = new ArrayList<>();
+
     public ToolTraitBuilder(String identifier) {
         this.identifier = identifier;
     }
@@ -135,6 +136,12 @@ public class ToolTraitBuilder {
     public void removeItem(IItemStack itemStack) {
         recipe.removeIf(Recipe -> Recipe.matches(itemStack));
     }
+
+    //@ZenMethod
+    //public void addCategories(String... categoriesArray) {
+        //this.categories.addAll(Arrays.asList(categoriesArray));
+        //category.addAll(Arrays.asList(categoriesArray));
+    //}
 
     @ZenMethod
     public TraitRepresentation register() {
@@ -162,7 +169,8 @@ public class ToolTraitBuilder {
         trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
-        trait.aspect = this.aspect;
+        //trait.cat.addAll(this.category);
+        trait.modifierRequired = this.modifierRequired;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);

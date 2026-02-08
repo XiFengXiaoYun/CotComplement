@@ -51,6 +51,15 @@ public class ProjTraitBuilder {
     public Function.AfterProjHit afterProjHit = null;
 
     @ZenProperty
+    public Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
+
+    @ZenProperty
+    public Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
+
+    @ZenProperty
+    public Function.ExtraInfo extraInfo = null;
+
+    @ZenProperty
     public Function.ApplyProjEffect applyEffect = null;
 
     @ZenProperty
@@ -94,6 +103,9 @@ public class ProjTraitBuilder {
         trait.onMovement = this.onMovement;
         trait.onProjectileUpdate = this.onProjectileUpdate;
         trait.afterProjHit = this.afterProjHit;
+        trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
+        trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
+        trait.extraInfo = this.extraInfo;
         trait.applyEffect = this.applyEffect;
         trait.hidden = this.hidden;
         trait.localizedName = this.localizedName;

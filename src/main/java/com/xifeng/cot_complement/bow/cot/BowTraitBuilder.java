@@ -48,6 +48,21 @@ public class BowTraitBuilder {
     public Function.onDrawingBow onDrawingBow = null;
 
     @ZenProperty
+    public Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
+
+    @ZenProperty
+    public Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
+
+    @ZenProperty
+    public Function.ExtraInfo extraInfo = null;
+
+    @ZenProperty
+    public Function.ApplyToolEffect applyEffect =null;
+
+    @ZenProperty
+    public Function.getAttributeModifiers getAttributeModifiers = null;
+
+    @ZenProperty
     public String localizedName = null;
 
     @ZenProperty
@@ -81,6 +96,11 @@ public class BowTraitBuilder {
         trait.onArrowLoose = onArrowLoose;
         trait.onDrawingBow = onDrawingBow;
         trait.calcArrowDamage = calcArrowDamage;
+        trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
+        trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
+        trait.extraInfo = this.extraInfo;
+        trait.applyEffect = this.applyEffect;
+        trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.hidden = hidden;
         trait.localizedDescription = localizedDescription;
         trait.localizedName = localizedName;
