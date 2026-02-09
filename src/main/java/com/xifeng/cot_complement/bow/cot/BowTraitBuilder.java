@@ -48,6 +48,9 @@ public class BowTraitBuilder {
     public Function.onDrawingBow onDrawingBow = null;
 
     @ZenProperty
+    public Function.OnUpdate onUpdate = null;
+
+    @ZenProperty
     public Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
 
     @ZenProperty
@@ -95,6 +98,7 @@ public class BowTraitBuilder {
         trait.onArrowNock = onArrowNock;
         trait.onArrowLoose = onArrowLoose;
         trait.onDrawingBow = onDrawingBow;
+        trait.onUpdate = this.onUpdate;
         trait.calcArrowDamage = calcArrowDamage;
         trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
