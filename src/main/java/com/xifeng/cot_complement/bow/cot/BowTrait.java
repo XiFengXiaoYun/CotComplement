@@ -30,6 +30,7 @@ public class BowTrait extends BowModifierTrait implements IBowTrait {
     Function.onArrowLoose onArrowLoose = null;
     Function.onDrawingBow onDrawingBow = null;
     Function.calcArrowDamage calcArrowDamage = null;
+    Function.OnUpdate onUpdate = null;
     Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
     Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
     Function.ExtraInfo extraInfo = null;
@@ -97,6 +98,15 @@ public class BowTrait extends BowModifierTrait implements IBowTrait {
             return calcArrowDamage.handle(thisTrait, CraftTweakerMC.getIItemStack(bow), CraftTweakerMC.getIItemStack(arrow), CraftTweakerMC.getIEntityLivingBase(helder), CraftTweakerMC.getIEntity(target), CraftTweakerMC.getIWorld(world), oldDamage, newDamage);
         }
         return super.calcArrowDamage(bow, arrow, helder, target, world, oldDamage, newDamage);
+    }
+
+    @Override
+    public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
+        if (onUpdate != null) {
+            onUpdate.handle(thisTrait, CraftTweakerMC.getIItemStack(tool), CraftTweakerMC.getIWorld(world), CraftTweakerMC.getIEntity(entity), itemSlot, isSelected);
+        } else {
+            super.onUpdate(tool, world, entity, itemSlot, isSelected);
+        }
     }
 
     @Override

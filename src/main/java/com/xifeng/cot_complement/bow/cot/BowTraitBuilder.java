@@ -7,6 +7,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
@@ -55,6 +56,9 @@ public class BowTraitBuilder {
     public Function.onDrawingBow onDrawingBow = null;
 
     @ZenProperty
+    public Function.OnUpdate onUpdate = null;
+
+    @ZenProperty
     public Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
 
     @ZenProperty
@@ -94,6 +98,11 @@ public class BowTraitBuilder {
     }
 
     @ZenMethod
+    public void addMultiItem(int amount, IItemStack... items) {
+        recipes.add(new RecipeMatch.ItemCombination(amount, CraftTweakerMC.getItemStacks(items)));
+    }
+
+    @ZenMethod
     public void removeItem(IItemStack itemStack) {
         recipe.removeIf(Recipe -> Recipe.matches(itemStack));
     }
@@ -104,6 +113,7 @@ public class BowTraitBuilder {
         trait.onArrowNock = onArrowNock;
         trait.onArrowLoose = onArrowLoose;
         trait.onDrawingBow = onDrawingBow;
+        trait.onUpdate = onUpdate;
         trait.calcArrowDamage = calcArrowDamage;
         trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
