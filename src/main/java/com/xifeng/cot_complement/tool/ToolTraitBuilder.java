@@ -42,6 +42,9 @@ public class ToolTraitBuilder {
     public int modifierRequired = 1;
 
     @ZenProperty
+    public boolean consumeOneSlot = false;
+
+    @ZenProperty
     public Function.AfterBlockBreak afterBlockBreak = null;
 
     @ZenProperty
@@ -111,8 +114,6 @@ public class ToolTraitBuilder {
 
     private final List<RecipeMatch> recipes = new ArrayList<>();
 
-    //public List<String> category = new ArrayList<>();
-
     public ToolTraitBuilder(String identifier) {
         this.identifier = identifier;
     }
@@ -137,15 +138,10 @@ public class ToolTraitBuilder {
         recipe.removeIf(Recipe -> Recipe.matches(itemStack));
     }
 
-    //@ZenMethod
-    //public void addCategories(String... categoriesArray) {
-        //this.categories.addAll(Arrays.asList(categoriesArray));
-        //category.addAll(Arrays.asList(categoriesArray));
-    //}
-
     @ZenMethod
     public TraitRepresentation register() {
-        ToolTrait trait = new ToolTrait(identifier, color, maxLevel, countPerLevel);
+        ToolTrait trait = new ToolTrait(identifier, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
+
         trait.afterBlockBreak = this.afterBlockBreak;
         trait.beforeBlockBreak = this.beforeBlockBreak;
         trait.onBlockHarvestDrops = this.onBlockHarvestDrops;
@@ -161,6 +157,7 @@ public class ToolTraitBuilder {
         trait.calcToolHeal = this.calcToolHeal;
         trait.onToolRepair = this.onToolRepair;
         trait.onPlayerHurt = this.onPlayerHurt;
+
         trait.hidden = this.hidden;
         trait.canApplyTogetherTrait = this.canApplyTogetherTrait;
         trait.canApplyTogetherEnchantment = this.canApplyTogetherEnchantment;
@@ -169,8 +166,6 @@ public class ToolTraitBuilder {
         trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
-        //trait.cat.addAll(this.category);
-        trait.modifierRequired = this.modifierRequired;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);

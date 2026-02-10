@@ -188,13 +188,6 @@ public class Function {
         void handle(TraitRepresentation thisTrait, NBTTagCompound rootCompound, NBTTagCompound modifierTag);
     }
 
-    @ZenClass("mods.cc.traits.ApplyProjEffect")
-    @ZenRegister
-    @ModOnly("tconstruct")
-    public interface ApplyProjEffect {
-        void handle(TraitRepresentation thisTrait, NBTTagCompound rootCompound, NBTTagCompound modifierTag);
-    }
-
     @ZenClass("mods.cc.traits.GetAttributeModifiers")
     @ZenRegister
     @ModOnly("tconstruct")

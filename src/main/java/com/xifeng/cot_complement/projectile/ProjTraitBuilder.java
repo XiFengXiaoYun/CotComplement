@@ -39,6 +39,12 @@ public class ProjTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
+    public int modifierRequired = 1;
+
+    @ZenProperty
+    public boolean consumeOneSlot = false;
+
+    @ZenProperty
     public Function.OnLaunch onLaunch = null;
 
     @ZenProperty
@@ -60,7 +66,7 @@ public class ProjTraitBuilder {
     public Function.ExtraInfo extraInfo = null;
 
     @ZenProperty
-    public Function.ApplyProjEffect applyEffect = null;
+    public Function.ApplyToolEffect applyEffect = null;
 
     @ZenProperty
     public String localizedName = null;
@@ -98,7 +104,7 @@ public class ProjTraitBuilder {
 
     @ZenMethod
     public TraitRepresentation register() {
-        ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel);
+        ProjTrait trait = new ProjTrait(identifier, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
         trait.onLaunch = this.onLaunch;
         trait.onMovement = this.onMovement;
         trait.onProjectileUpdate = this.onProjectileUpdate;

@@ -1,6 +1,7 @@
 package com.xifeng.cot_complement.tool;
 
 import com.google.common.collect.Multimap;
+import com.xifeng.cot_complement.utils.Aspect;
 import com.xifeng.cot_complement.utils.Function;
 import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
@@ -28,11 +29,9 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
-import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,13 +60,25 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
-    int modifierRequired = 1;
-    //List<String> category = new ArrayList<>();
     private final TraitRepresentation thisTrait = new TraitRepresentation(this);
-    public List<String> cat = new ArrayList<>();
 
-    public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {
+    public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel, int modifierRequired, boolean consumeOneSlot) {
         super(identifier, color, maxLevel, countPerLevel);
+        this.aspects.clear();
+        if (maxLevel > 0 && countPerLevel > 0) {
+            this.addAspects(new Aspect.SpecialAspect(this, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot));
+        } else {
+            if (maxLevel > 0) {
+                this.addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
+            }
+            if (consumeOneSlot) {
+                this.addAspects(new ModifierAspect.FreeFirstModifierAspect(this, modifierRequired));
+            } else {
+                this.addAspects(new ModifierAspect.FreeModifierAspect(modifierRequired));
+            }
+
+            this.addAspects(new ModifierAspect.DataAspect(this, color));
+        }
     }
 
     @Override
@@ -269,22 +280,6 @@ public class ToolTrait extends ModifierTrait implements ITrait {
         return super.getLocalizedDesc();
     }
 
-    @Override
-    public void addAspects(ModifierAspect... aspects) {
-        if(modifierRequired != 1) {
-            this.aspects.removeIf(aspect -> aspect instanceof ModifierAspect.FreeModifierAspect);
-            ModifierAspect.FreeModifierAspect free = new ModifierAspect.FreeModifierAspect(modifierRequired);
-            this.aspects.add(free);
-        }/*
-        if(cat != null && !cat.isEmpty()) {
-            this.aspects.add(getAspect(cat));
-            System.out.println("Added a category");
-        } else if(cat == null) {
-            System.out.println("category is null");
-        }
-        */
-    }
-
     public void addItem(RecipeMatch recipeMatch) {
         this.items.add(recipeMatch);
     }
@@ -293,11 +288,4 @@ public class ToolTrait extends ModifierTrait implements ITrait {
         this.items.add(recipeMatch);
     }
 
-    private ModifierAspect.CategoryAnyAspect getAspect(List<String> categories) {
-        Category[] cats = new Category[categories.size()];
-        for (int i = 0; i < categories.size(); i++) {
-            cats[i] = Category.categories.get(categories.get(i));
-        }
-        return new ModifierAspect.CategoryAnyAspect(cats);
-    }
 }

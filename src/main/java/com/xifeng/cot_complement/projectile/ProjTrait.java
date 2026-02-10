@@ -1,5 +1,6 @@
 package com.xifeng.cot_complement.projectile;
 
+import com.xifeng.cot_complement.utils.Aspect;
 import com.xifeng.cot_complement.utils.Function;
 import com.xifeng.cot_complement.utils.TraitRepresentation;
 import crafttweaker.api.minecraft.CraftTweakerMC;
@@ -14,7 +15,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ProjectileModifierTrait;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 
 import javax.annotation.Nonnull;
@@ -28,7 +31,7 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     Function.OnProjectileUpdate onProjectileUpdate = null;
     Function.OnMovement onMovement = null;
     Function.AfterProjHit afterProjHit = null;
-    Function.ApplyProjEffect applyEffect = null;
+    Function.ApplyToolEffect applyEffect = null;
     Function.CanApplyTogetherTrait canApplyTogetherTrait = null;
     Function.CanApplyTogetherEnchantment canApplyTogetherEnchantment = null;
     Function.ExtraInfo extraInfo = null;
@@ -37,9 +40,23 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     boolean hidden = false;
     private final TraitRepresentation thisTrait = new TraitRepresentation(this);
 
-    public ProjTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel) {
+    public ProjTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel, int modifierRequired, boolean consumeOneSlot) {
         super(identifier, color, maxLevel, countPerLevel);
+        this.aspects.clear();
+        if (maxLevel > 0 && countPerLevel > 0) {
+            this.addAspects(new Aspect.SpecialAspect(this, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot));
+        } else {
+            if (maxLevel > 0) {
+                this.addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
+            }
+            if (consumeOneSlot) {
+                this.addAspects(new ModifierAspect.FreeFirstModifierAspect(this, modifierRequired));
+            } else {
+                this.addAspects(new ModifierAspect.FreeModifierAspect(modifierRequired));
+            }
 
+            this.addAspects(new ModifierAspect.DataAspect(this, color), new ModifierAspect.CategoryAspect(Category.PROJECTILE));
+        }
     }
 
     @Override

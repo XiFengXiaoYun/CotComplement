@@ -7,6 +7,7 @@ import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -34,6 +35,12 @@ public class BowTraitBuilder {
 
     @ZenProperty
     public boolean hidden = false;
+
+    @ZenProperty
+    public int modifierRequired = 1;
+
+    @ZenProperty
+    public boolean consumeOneSlot = false;
 
     @ZenProperty
     public Function.onArrowNock onArrowNock = null;
@@ -70,6 +77,8 @@ public class BowTraitBuilder {
 
     private final List<Recipe> recipe = new ArrayList<>();
 
+    private final List<RecipeMatch> recipes = new ArrayList<>();
+
     public BowTraitBuilder(String identifier) {
         this.identifier = identifier;
     }
@@ -91,7 +100,7 @@ public class BowTraitBuilder {
 
     @ZenMethod
     public TraitRepresentation register() {
-        BowTrait trait = new BowTrait(identifier, color, maxLevel, countPerLevel);
+        BowTrait trait = new BowTrait(identifier, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
         trait.onArrowNock = onArrowNock;
         trait.onArrowLoose = onArrowLoose;
         trait.onDrawingBow = onDrawingBow;
@@ -106,6 +115,9 @@ public class BowTraitBuilder {
         trait.localizedName = localizedName;
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
+        }
+        for (RecipeMatch recipe : recipes) {
+            trait.addItem(recipe);
         }
         TinkerRegistry.addTrait(trait);
         return new TraitRepresentation(trait);
