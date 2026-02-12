@@ -39,6 +39,9 @@ public class ProjTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
+    public int priority = 100;
+
+    @ZenProperty
     public int modifierRequired = 1;
 
     @ZenProperty
@@ -116,6 +119,7 @@ public class ProjTraitBuilder {
         trait.hidden = this.hidden;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
+        trait.priority = this.priority;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);

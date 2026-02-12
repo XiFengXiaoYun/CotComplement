@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -39,30 +38,23 @@ public class BowTrait extends BowModifierTrait implements IBowTrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
+    int priority = 100;
     private final TraitRepresentation thisTrait =  new TraitRepresentation(this);
 
     public BowTrait(String id, int color, int maxLevel, int countPerLevel, int modifierRequired, boolean consumeOneSlot) {
         super(id, color, maxLevel, countPerLevel);
-        this.aspects.clear();
-        if (maxLevel > 0 && countPerLevel > 0) {
-            this.addAspects(new Aspect.SpecialAspect(this, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot));
-        } else {
-            if (maxLevel > 0) {
-                this.addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
-            }
-            if (consumeOneSlot) {
-                this.addAspects(new ModifierAspect.FreeFirstModifierAspect(this, modifierRequired));
-            } else {
-                this.addAspects(new ModifierAspect.FreeModifierAspect(modifierRequired));
-            }
-
-            this.addAspects(new ModifierAspect.DataAspect(this, color), Aspect.launcher);
-        }
+        Aspect.handleAspect(this, this.aspects, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
+        this.addAspects(Aspect.launcher);
     }
 
     @Override
     public boolean isHidden() {
         return hidden;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override

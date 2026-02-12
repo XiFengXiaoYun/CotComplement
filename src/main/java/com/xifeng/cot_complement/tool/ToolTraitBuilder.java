@@ -45,6 +45,9 @@ public class ToolTraitBuilder {
     public boolean consumeOneSlot = false;
 
     @ZenProperty
+    public int priority = 100;
+
+    @ZenProperty
     public Function.AfterBlockBreak afterBlockBreak = null;
 
     @ZenProperty
@@ -166,6 +169,7 @@ public class ToolTraitBuilder {
         trait.getAttributeModifiers = this.getAttributeModifiers;
         trait.localizedName = this.localizedName;
         trait.localizedDescription = this.localizedDescription;
+        trait.priority = this.priority;
 
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);

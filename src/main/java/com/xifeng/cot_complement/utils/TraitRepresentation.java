@@ -3,21 +3,13 @@ package com.xifeng.cot_complement.utils;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.api.oredict.IOreDictEntry;
-import net.minecraft.item.ItemStack;
-import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
-import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.util.Arrays;
 
 @ZenClass("mods.cc.tic.Trait")
 @ZenRegister
@@ -30,7 +22,7 @@ public class TraitRepresentation {
     public ITrait getTrait() {
         return trait;
     }
-
+/*
     @ZenMethod
     public void addItem(IIngredient item, @Optional(valueLong = 1) int amountNeeded, @Optional(valueLong = 1) int amountMatched) {
 
@@ -77,6 +69,8 @@ public class TraitRepresentation {
         }
         recipeMatchRegistry.addRecipeMatch(new RecipeMatch.ItemCombination(amountMatched, stacks));
     }
+
+ */
 
     @ZenGetter("identifier")
     public String getIdentifier() {

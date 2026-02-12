@@ -38,30 +38,23 @@ public class ProjTrait extends ProjectileModifierTrait implements IProjectileTra
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
+    int priority = 100;
     private final TraitRepresentation thisTrait = new TraitRepresentation(this);
 
     public ProjTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel, int modifierRequired, boolean consumeOneSlot) {
         super(identifier, color, maxLevel, countPerLevel);
-        this.aspects.clear();
-        if (maxLevel > 0 && countPerLevel > 0) {
-            this.addAspects(new Aspect.SpecialAspect(this, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot));
-        } else {
-            if (maxLevel > 0) {
-                this.addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
-            }
-            if (consumeOneSlot) {
-                this.addAspects(new ModifierAspect.FreeFirstModifierAspect(this, modifierRequired));
-            } else {
-                this.addAspects(new ModifierAspect.FreeModifierAspect(modifierRequired));
-            }
-
-            this.addAspects(new ModifierAspect.DataAspect(this, color), new ModifierAspect.CategoryAspect(Category.PROJECTILE));
-        }
+        Aspect.handleAspect(this, this.aspects, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
+        this.addAspects(new ModifierAspect.CategoryAspect(Category.PROJECTILE));
     }
 
     @Override
     public boolean isHidden() {
         return hidden;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override

@@ -66,7 +66,7 @@ public class CCTagUtil {
         ItemStack itemStack = CraftTweakerMC.getItemStack(item);
         return CraftTweakerMC.getIData(TagUtil.getBaseModifiersTagList(itemStack));
     }
-//最终方案！
+
     @ZenMethod
     public static void setFloat(NBTTagCompound root, float amount, String key) {
         root.getCompoundTag("Stats").setFloat(key, amount);

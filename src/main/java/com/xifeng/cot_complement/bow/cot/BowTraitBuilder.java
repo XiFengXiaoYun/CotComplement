@@ -38,6 +38,9 @@ public class BowTraitBuilder {
     public boolean hidden = false;
 
     @ZenProperty
+    public int priority = 100;
+
+    @ZenProperty
     public int modifierRequired = 1;
 
     @ZenProperty
@@ -123,6 +126,7 @@ public class BowTraitBuilder {
         trait.hidden = hidden;
         trait.localizedDescription = localizedDescription;
         trait.localizedName = localizedName;
+        trait.priority = priority;
         for (Recipe recipes : recipe) {
             trait.addItem(recipes);
         }

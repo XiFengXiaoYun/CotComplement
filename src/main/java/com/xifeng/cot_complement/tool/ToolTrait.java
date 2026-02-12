@@ -27,7 +27,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
 
@@ -60,30 +59,22 @@ public class ToolTrait extends ModifierTrait implements ITrait {
     String localizedName = null;
     String localizedDescription = null;
     boolean hidden = false;
+    int priority = 100;
     private final TraitRepresentation thisTrait = new TraitRepresentation(this);
 
     public ToolTrait(@Nonnull String identifier, int color, int maxLevel, int countPerLevel, int modifierRequired, boolean consumeOneSlot) {
         super(identifier, color, maxLevel, countPerLevel);
-        this.aspects.clear();
-        if (maxLevel > 0 && countPerLevel > 0) {
-            this.addAspects(new Aspect.SpecialAspect(this, color, maxLevel, countPerLevel, modifierRequired, consumeOneSlot));
-        } else {
-            if (maxLevel > 0) {
-                this.addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
-            }
-            if (consumeOneSlot) {
-                this.addAspects(new ModifierAspect.FreeFirstModifierAspect(this, modifierRequired));
-            } else {
-                this.addAspects(new ModifierAspect.FreeModifierAspect(modifierRequired));
-            }
-
-            this.addAspects(new ModifierAspect.DataAspect(this, color));
-        }
+        Aspect.handleAspect(this, this.aspects, color,  maxLevel, countPerLevel, modifierRequired, consumeOneSlot);
     }
 
     @Override
     public boolean isHidden() {
         return hidden;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override
